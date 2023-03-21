@@ -3,11 +3,12 @@ using StarterApi.ApiModels.Login;
 using StarterApi.ApiModels.Query;
 using StarterApi.ApiModels.Store;
 using StarterApi.ApiModels.User;
+using StarterApi.Constants;
 using StarterApi.Entities;
 using StarterApi.Helpers;
 using StarterApi.Middlewares.Exceptions;
 using StarterApi.Repositories.UnitOfWork;
-
+using System.Text.RegularExpressions;
 
 namespace StarterApi.Services.Users
 {
@@ -16,11 +17,14 @@ namespace StarterApi.Services.Users
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHelper _helperSvc;
         private readonly ILogger<UserService> _logger;
-        public UserService(IUnitOfWork unitOfWork, IHelper helperSvc, ILogger<UserService> logger)
+        private readonly RegexConfig _regexCfg;
+
+        public UserService(IUnitOfWork unitOfWork, IHelper helperSvc, ILogger<UserService> logger, RegexConfig regexCfg)
         {
             _unitOfWork = unitOfWork;
             _helperSvc = helperSvc;
             _logger = logger;
+            _regexCfg = regexCfg;
         }
 
         public async Task<LoginResponse> Authenticate(LoginRequest request)
@@ -41,16 +45,14 @@ namespace StarterApi.Services.Users
             return new LoginResponse { Token = token };
         }
 
-        public User ConvertToEntity(UserPost req)
+        public async Task<long> CreateUser(UserPost req)
         {
-            return new User
-            {
-                FirstName = req.FirstName,
-                LastName = req.LastName,
-                Email = req.Email,
-                Password = _helperSvc.GenerateHash(req.Password)
-            };
+            User newRow = ConvertToEntity(req);
+            CheckPasswordStrength(req.Password);
+            await DoesUserExist(req.Email);
+            return await Save(newRow);
         }
+
 
         public async Task<bool> Delete(User store)
         {
@@ -82,16 +84,49 @@ namespace StarterApi.Services.Users
         }
 
 
-        public async Task<UserGet> Save(User newRow)
-        {
-            await _unitOfWork.Users.Add(newRow);
-            await _unitOfWork.CompleteAsync();
 
-            return TransformOne(await GetEntity(newRow.Id, null), null);
+        // private methods
+        private User ConvertToEntity(UserPost req)
+        {
+            return new User
+            {
+                FirstName = req.FirstName,
+                LastName = req.LastName,
+                Email = req.Email,
+                Password = _helperSvc.GenerateHash(req.Password)
+            };
+        }
+
+        private async Task DoesUserExist(string email)
+        {
+            UserQueryParams queryParams = new() { Email = email };
+            var user = await _unitOfWork.Users.FindUserByProps(queryParams);
+            if (user != null)
+            {
+                throw new BadHttpRequestException($"{email} already exists");
+            }
+            return;
+        }
+
+        private void CheckPasswordStrength(string password)
+        {
+            string pattern = $@"{_regexCfg.PasswordStrength}";
+            Regex rg = new(pattern);
+            Match isMatch = rg.Match(password);
+            if (string.IsNullOrEmpty(isMatch.Value))
+            {
+                string msg = $"At least 1 of the following password requirements were not met\n\n" +
+                    $"2 uppercase letters\n" +
+                    $"3 lowercase letters\n" +
+                    $"1 special character (!@#$&*)\n" +
+                    $"2 digits\n" +
+                    $"at least 8 characters in length but no more than 50";
+                throw new BadHttpRequestException(msg);
+            }
+            return;
         }
 
 
-        // private methods
         private async Task<User> FindUser(string email)
         {
             UserQueryParams queryParams = new(){ Email = email };
@@ -102,6 +137,7 @@ namespace StarterApi.Services.Users
             }
             return user;
         }
+
 
         private UserGet TransformOne(User row, UserQueryParams queryParams)
         {
@@ -135,6 +171,15 @@ namespace StarterApi.Services.Users
 
             };
         }
+
+        private async Task<long> Save(User newRow)
+        {
+            await _unitOfWork.Users.Add(newRow);
+            await _unitOfWork.CompleteAsync();
+
+            return newRow.Id;
+        }
+
 
     }
 }

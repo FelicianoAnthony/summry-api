@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using StarterApi.ApiModels.Middlewares;
-using System.Diagnostics;
 using System.Net;
 using System.Security.Authentication;
 
@@ -28,27 +27,34 @@ namespace StarterApi.Middlewares.Exceptions
                 var response = context.Response;
                 response.ContentType = "application/json";
 
+                Exception innerMostException = GetInnerMostException(error);
+
                 string serializedResponse;
-                switch (error)
+                int statusCode;
+                switch (innerMostException)
                 {
                     case AuthenticationException:
-                        serializedResponse = CreateSerializedExceptionResponse(error, true);
-                        response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        statusCode = (int)HttpStatusCode.Unauthorized;
+                        serializedResponse = CreateSerializedExceptionResponse(innerMostException, statusCode);
+                        response.StatusCode = statusCode;
                         _logger.LogError(error, error?.Message);
                         break;
                     case NotFoundException:
-                        serializedResponse = CreateSerializedExceptionResponse(error, true);
-                        response.StatusCode = (int)HttpStatusCode.NotFound;
+                        statusCode = (int)HttpStatusCode.NotFound;
+                        serializedResponse = CreateSerializedExceptionResponse(innerMostException, statusCode);
+                        response.StatusCode = statusCode;
                         _logger.LogError(error, error?.Message);
                         break;
                     case BadHttpRequestException:
-                        serializedResponse = CreateSerializedExceptionResponse(error, true);
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        statusCode = (int)HttpStatusCode.BadRequest;
+                        serializedResponse = CreateSerializedExceptionResponse(innerMostException, statusCode);
+                        response.StatusCode = statusCode;
                         _logger.LogError(error, error?.Message);
                         break;
                     default:
-                        serializedResponse = CreateSerializedExceptionResponse(error, false);
-                        response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        statusCode = (int)HttpStatusCode.InternalServerError;
+                        serializedResponse = CreateSerializedExceptionResponse(innerMostException, statusCode);
+                        response.StatusCode = statusCode;
                         _logger.LogCritical(error, error?.Message);
                         break;
                 }
@@ -57,22 +63,33 @@ namespace StarterApi.Middlewares.Exceptions
             }
         }
 
-        private string CreateSerializedExceptionResponse(Exception error, bool isExceptionHandled)
+        private string CreateSerializedExceptionResponse(Exception error, int statusCode)
         {
             ExceptionResponse exceptionResponse = new()
             {
-                ExceptionType = error.GetType().Name,
-                Error = error?.Message,
-                InnerException = error.InnerException?.ToString().Split("\r\n").Select(e => e.TrimStart()).ToList(),
-                ExceptionHandled = isExceptionHandled,
-                Timestamp = DateTime.UtcNow,
+                Type = error.GetType().Name,
+                Title = error.Message,
+                Status = statusCode,
+                TraceId = DateTime.UtcNow.ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'"),
+                Errors = GenerateErrorProperty(error)
             };
 
-            ExceptionCodeDetails codeDetails = ParseStackTrace(error);
-            exceptionResponse.Class = codeDetails.Class;
-            exceptionResponse.Method = codeDetails.Method;
-
             return SerializeResponse(exceptionResponse);
+        }
+
+
+        private Dictionary<string, List<string>> GenerateErrorProperty(Exception exception)
+        {
+            return new Dictionary<string, List<string>>() { { exception.GetType().Name, new List<string>() { { exception.Message } } } };
+        }
+
+        private Exception GetInnerMostException(Exception exception)
+        {
+            if (exception.InnerException != null)
+            { 
+                return GetInnerMostException(exception.InnerException);
+            }
+            return exception;
         }
 
 
@@ -81,22 +98,6 @@ namespace StarterApi.Middlewares.Exceptions
             return JsonConvert.SerializeObject(errorResponse);
         }
 
-
-        private ExceptionCodeDetails ParseStackTrace(Exception error)
-        {
-            StackTrace st = new(error, true);
-            var query = st.GetFrames()
-                        .Select(frame => new ExceptionCodeDetails
-                        {
-                            FileName = frame.GetFileName(),
-                            LineNumber = frame.GetFileLineNumber(),
-                            ColumnNumber = frame.GetFileColumnNumber(),
-                            Method = frame.GetMethod()?.ToString(),
-                            Class = frame.GetMethod().DeclaringType?.ToString()
-                        }).FirstOrDefault();
-
-            return query;
-        }
     }
 
 }

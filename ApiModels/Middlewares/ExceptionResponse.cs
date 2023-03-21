@@ -1,24 +1,27 @@
-﻿namespace StarterApi.ApiModels.Middlewares
+﻿using Newtonsoft.Json;
+
+namespace StarterApi.ApiModels.Middlewares
 {
     public class ExceptionResponse
     {
-        public ExceptionResponse()
-        {
-            ExceptionHandled = false;
-        }
 
-        public string ExceptionType { get; set; }
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
 
-        public string Error { get; set; }
 
-        public List<string> InnerException { get; set; }
+        [JsonProperty(PropertyName = "title")]
+        public string Title { get; set; }
 
-        public bool ExceptionHandled { get; set; }
 
-        public string Class { get; set; }
+        [JsonProperty(PropertyName = "status")]
+        public int Status { get; set; }
 
-        public string Method { get; set; }
 
-        public DateTime Timestamp { get; set; }
+        [JsonProperty(PropertyName = "traceId")]
+        public string TraceId { get; set; }
+
+
+        [JsonProperty(PropertyName = "errors")]
+        public Dictionary<string, List<string>> Errors { get; set; }
     }
 }
