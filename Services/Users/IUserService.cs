@@ -8,7 +8,7 @@ namespace StarterApi.Services.Users
     {
         Task<LoginResponse> Authenticate(LoginRequest request);
 
-        User ConvertToEntity(UserPost req);
+        Task<long> CreateUser(UserPost req);
 
         Task<bool> Delete(User store);
 
@@ -17,8 +17,6 @@ namespace StarterApi.Services.Users
         Task<UserGet> GetOne(long id, UserQueryParams? queryParams);
 
         Task<User> GetEntity(long id, UserQueryParams? queryParams);
-
-        Task<UserGet> Save(User newRow);
 
     }
 }

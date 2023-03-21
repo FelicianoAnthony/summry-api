@@ -57,8 +57,9 @@ namespace StarterApi.Controllers
         [HttpPost]
         public async Task<ActionResult<UserGet>> AddUser(UserPost request)
         {
-            User newRow = _userSvc.ConvertToEntity(request);
-            return await _userSvc.Save(newRow);
+            long newUserId = await _userSvc.CreateUser(request);
+            return await _userSvc.GetOne(newUserId, null);
+            
         }
 
 

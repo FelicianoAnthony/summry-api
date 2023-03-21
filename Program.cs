@@ -170,6 +170,7 @@ builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
 
 // add class that maps to 'JwtConfig' key in appsettings.{{environment}}.json 
 builder.Services.AddSingleton(builder.Configuration.GetSection("JwtConfig").Get<JwtConfig>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("RegexConfig").Get<RegexConfig>());
 
 
 // add HTTP client service config 
