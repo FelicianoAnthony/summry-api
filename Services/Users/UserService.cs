@@ -116,10 +116,9 @@ namespace StarterApi.Services.Users
             if (string.IsNullOrEmpty(isMatch.Value))
             {
                 string msg = $"At least 1 of the following password requirements were not met\n\n" +
-                    $"2 uppercase letters\n" +
-                    $"3 lowercase letters\n" +
-                    $"1 special character (!@#$&*)\n" +
-                    $"2 digits\n" +
+                    $"at least 1 uppercase letter\n" +
+                    $"at least 1 special character (!@#$&*)\n" +
+                    $"at least 1 digit\n" +
                     $"at least 8 characters in length but no more than 50";
                 throw new BadHttpRequestException(msg);
             }
