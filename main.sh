@@ -64,6 +64,7 @@ function copy_unit_file()
 # $2=WINEAPI_UNIT_FILE
 function change_service_status()
 {
+    sudo systemctl daemon-reload
     sudo systemctl $1 $2
 }
 
