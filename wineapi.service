@@ -1,0 +1,19 @@
+[Unit]
+Description=This is a sample application for my tutorial[Service]
+
+[Service]
+WorkingDirectory=/home/ubuntu/summry_api/bin/Release/net6.0/ubuntu.22.04-x64
+ExecStart=/usr/bin/dotnet /home/ubuntu/summry_api/bin/Release/net6.0/ubuntu.22.04-x64/StarterApi.dll
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-example
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+# If you need to run multiple services on different ports set
+# the ports environment variable here:
+# Environment=ASPNETCORE_URLS=http://localhost:6000[Install]
+
+[Install]
+WantedBy=multi-user.target
