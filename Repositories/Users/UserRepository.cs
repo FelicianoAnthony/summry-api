@@ -9,11 +9,10 @@ namespace StarterApi.Repositories.Users
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private readonly List<string> _queriesTable = new() { "Queries" };
-
-        private readonly List<string> _userStoresTables = new() 
-        { 
-            "UserStore.Store"
+        private readonly List<string> _defaultTables = new() 
+        {
+            "UserSummries.UserSummryQueries",
+            "UserSummries.UserSummryStores.Store.Platform"
         };
 
         public UserRepository(StarterApiContext context) : base(context)
@@ -49,18 +48,7 @@ namespace StarterApi.Repositories.Users
         // private methods
         private List<string> BuildRelatedEntitiesLookup(UserQueryParams? queryParams)
         {
-            queryParams = queryParams ?? new UserQueryParams();
-            var relatedTables = new List<string>();
-            if (queryParams.ShowQueries == true)
-            {
-                relatedTables.AddRange(_queriesTable);
-            }
-
-            if (queryParams.ShowStores == true) 
-            {
-                relatedTables.AddRange(_userStoresTables);
-            }
-            return relatedTables;
+            return _defaultTables;
         }
 
 

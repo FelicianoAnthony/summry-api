@@ -11,11 +11,11 @@ namespace StarterApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "TestSchema");
+                name: "public");
 
             migrationBuilder.CreateTable(
                 name: "Permissions",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -34,7 +34,7 @@ namespace StarterApi.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Platform",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -53,7 +53,7 @@ namespace StarterApi.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Roles",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -71,7 +71,7 @@ namespace StarterApi.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -91,14 +91,12 @@ namespace StarterApi.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Stores",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
                     Url = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
                     PlatformId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -110,7 +108,7 @@ namespace StarterApi.Migrations
                     table.ForeignKey(
                         name: "FK_Stores_Platform_PlatformId",
                         column: x => x.PlatformId,
-                        principalSchema: "TestSchema",
+                        principalSchema: "public",
                         principalTable: "Platform",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -118,7 +116,7 @@ namespace StarterApi.Migrations
 
             migrationBuilder.CreateTable(
                 name: "RolePermissions",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -135,50 +133,22 @@ namespace StarterApi.Migrations
                     table.ForeignKey(
                         name: "FK_RolePermissions_Permissions_PermissionId",
                         column: x => x.PermissionId,
-                        principalSchema: "TestSchema",
+                        principalSchema: "public",
                         principalTable: "Permissions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RolePermissions_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "TestSchema",
+                        principalSchema: "public",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Query",
-                schema: "TestSchema",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Producer = table.Column<string>(type: "text", nullable: false),
-                    Bottle = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<float>(type: "real", nullable: false),
-                    MostRecentMinutes = table.Column<int>(type: "integer", nullable: true),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Query", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Query_Users_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "TestSchema",
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserRoles",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -195,14 +165,41 @@ namespace StarterApi.Migrations
                     table.ForeignKey(
                         name: "FK_UserRoles_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "TestSchema",
+                        principalSchema: "public",
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
-                        principalSchema: "TestSchema",
+                        principalSchema: "public",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserSummries",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Slug = table.Column<string>(type: "text", nullable: false),
+                    IsPaused = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSummries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserSummries_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "public",
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -210,7 +207,7 @@ namespace StarterApi.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Products",
-                schema: "TestSchema",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -231,20 +228,50 @@ namespace StarterApi.Migrations
                     table.ForeignKey(
                         name: "FK_Products_Stores_StoreId",
                         column: x => x.StoreId,
-                        principalSchema: "TestSchema",
+                        principalSchema: "public",
                         principalTable: "Stores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserStore",
-                schema: "TestSchema",
+                name: "UserSummryQueries",
+                schema: "public",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Merchant = table.Column<string>(type: "text", nullable: false),
+                    Product = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: true),
+                    MostRecentMinutes = table.Column<int>(type: "integer", nullable: true),
+                    IsPaused = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    UserSummryId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSummryQueries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserSummryQueries_UserSummries_UserSummryId",
+                        column: x => x.UserSummryId,
+                        principalSchema: "public",
+                        principalTable: "UserSummries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserSummryStores",
+                schema: "public",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IsPaused = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    UserSummryId = table.Column<long>(type: "bigint", nullable: false),
                     StoreId = table.Column<long>(type: "bigint", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     UpdatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -252,157 +279,168 @@ namespace StarterApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserStore", x => x.Id);
+                    table.PrimaryKey("PK_UserSummryStores", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserStore_Stores_StoreId",
+                        name: "FK_UserSummryStores_Stores_StoreId",
                         column: x => x.StoreId,
-                        principalSchema: "TestSchema",
+                        principalSchema: "public",
                         principalTable: "Stores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserStore_Users_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "TestSchema",
-                        principalTable: "Users",
+                        name: "FK_UserSummryStores_UserSummries_UserSummryId",
+                        column: x => x.UserSummryId,
+                        principalSchema: "public",
+                        principalTable: "UserSummries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_Controller_Action",
-                schema: "TestSchema",
+                schema: "public",
                 table: "Permissions",
                 columns: new[] { "Controller", "Action" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Platform_Name",
-                schema: "TestSchema",
+                schema: "public",
                 table: "Platform",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_StoreId",
-                schema: "TestSchema",
+                schema: "public",
                 table: "Products",
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Query_UserId",
-                schema: "TestSchema",
-                table: "Query",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RolePermissions_PermissionId",
-                schema: "TestSchema",
+                schema: "public",
                 table: "RolePermissions",
                 column: "PermissionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolePermissions_RoleId_PermissionId",
-                schema: "TestSchema",
+                schema: "public",
                 table: "RolePermissions",
                 columns: new[] { "RoleId", "PermissionId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_Name",
-                schema: "TestSchema",
+                schema: "public",
                 table: "Roles",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stores_PlatformId",
-                schema: "TestSchema",
+                schema: "public",
                 table: "Stores",
                 column: "PlatformId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stores_Url",
-                schema: "TestSchema",
+                schema: "public",
                 table: "Stores",
                 column: "Url",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
-                schema: "TestSchema",
+                schema: "public",
                 table: "UserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_UserId_RoleId",
-                schema: "TestSchema",
+                schema: "public",
                 table: "UserRoles",
                 columns: new[] { "UserId", "RoleId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
-                schema: "TestSchema",
+                schema: "public",
                 table: "Users",
                 column: "Email",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserStore_StoreId_UserId",
-                schema: "TestSchema",
-                table: "UserStore",
-                columns: new[] { "StoreId", "UserId" },
+                name: "IX_UserSummries_UserId_Title",
+                schema: "public",
+                table: "UserSummries",
+                columns: new[] { "UserId", "Title" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserStore_UserId",
-                schema: "TestSchema",
-                table: "UserStore",
-                column: "UserId");
+                name: "IX_UserSummryQueries_UserSummryId",
+                schema: "public",
+                table: "UserSummryQueries",
+                column: "UserSummryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSummryStores_StoreId_UserSummryId",
+                schema: "public",
+                table: "UserSummryStores",
+                columns: new[] { "StoreId", "UserSummryId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSummryStores_UserSummryId",
+                schema: "public",
+                table: "UserSummryStores",
+                column: "UserSummryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Products",
-                schema: "TestSchema");
-
-            migrationBuilder.DropTable(
-                name: "Query",
-                schema: "TestSchema");
+                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "RolePermissions",
-                schema: "TestSchema");
+                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "UserRoles",
-                schema: "TestSchema");
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "UserStore",
-                schema: "TestSchema");
+                name: "UserSummryQueries",
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "UserSummryStores",
+                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "Permissions",
-                schema: "TestSchema");
+                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "Roles",
-                schema: "TestSchema");
+                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "Stores",
-                schema: "TestSchema");
+                schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Users",
-                schema: "TestSchema");
+                name: "UserSummries",
+                schema: "public");
 
             migrationBuilder.DropTable(
                 name: "Platform",
-                schema: "TestSchema");
+                schema: "public");
+
+            migrationBuilder.DropTable(
+                name: "Users",
+                schema: "public");
         }
     }
 }

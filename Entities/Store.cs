@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using StarterApi.Entities.Base;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using StarterApi.Entities.Base;
 
 namespace StarterApi.Entities
 {
@@ -9,11 +6,7 @@ namespace StarterApi.Entities
     {
         public long Id { get; set; }
 
-        public string Name { get; set; }
-
         public string Url { get; set; }
-
-        public string Description { get; set; }
 
 
         // foreign keys 
@@ -24,7 +17,7 @@ namespace StarterApi.Entities
 
         public virtual ICollection<Product> Products { get; set; }
 
-        public virtual ICollection<UserStore> UserStore { get; set; } 
+        public virtual ICollection<UserSummryStore> UserSummryStore { get; set; } 
 
     }
 }

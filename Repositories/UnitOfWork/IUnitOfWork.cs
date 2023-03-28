@@ -1,13 +1,14 @@
 ﻿using StarterApi.Repositories.Permissions;
 using StarterApi.Repositories.Platforms;
 using StarterApi.Repositories.Products;
-using StarterApi.Repositories.Queries;
+using StarterApi.Repositories.UserSummryQueries;
 using StarterApi.Repositories.RolePermissions;
 using StarterApi.Repositories.Roles;
 using StarterApi.Repositories.Stores;
 using StarterApi.Repositories.UserRoles;
 using StarterApi.Repositories.Users;
-using StarterApi.Repositories.UserStores;
+using StarterApi.Repositories.UserSummryStores;
+using StarterApi.Repositories.UserSummries;
 
 namespace StarterApi.Repositories.UnitOfWork
 {
@@ -21,7 +22,7 @@ namespace StarterApi.Repositories.UnitOfWork
 
         IProductRepository Products { get; }
 
-        IQueryRepository Queries { get; }
+        IUserSummryQueryRepository UserSummryQueries{ get; }
 
         IRolePermissionRepository RolePermissions { get; }
 
@@ -31,7 +32,9 @@ namespace StarterApi.Repositories.UnitOfWork
 
         IUserRepository Users { get; }
 
-        IUserStoreRepository UserStore { get; }
+        IUserSummryStoreRepository UserSummryStores { get; }
+
+        IUserSummryRepository UserSummries { get; }
 
         Task CompleteAsync();
     }

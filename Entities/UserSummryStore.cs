@@ -2,18 +2,19 @@
 
 namespace StarterApi.Entities
 {
-    public class UserStore : BaseTimestamp
+    public class UserSummryStore : BaseTimestamp
     {
         public long Id { get; set; }
 
-
-        // foreign keys...        
-        public long UserId { get; set; }
-
-        public virtual User User { get; set; }
+        public bool IsPaused { get; set; }
 
 
         // foreign keys...        
+        public long UserSummryId { get; set; }
+
+        public virtual UserSummry UserSummry { get; set; }
+
+
         public long StoreId { get; set; }
 
         public virtual Store Store { get; set; }

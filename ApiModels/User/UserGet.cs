@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.Query;
-using StarterApi.ApiModels.Store;
+using StarterApi.ApiModels.UserSummry;
 using System.Text.Json.Serialization;
 
 namespace StarterApi.ApiModels.User
@@ -12,22 +11,20 @@ namespace StarterApi.ApiModels.User
 
 
         [JsonProperty(Required = Required.Always)]
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
 
 
         [JsonProperty(Required = Required.Always)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
 
 
         [JsonProperty(Required = Required.Always)]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         // foreign keys
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public List<StoreGet>? Stores{ get; set; }
+        public List<UserSummryGet> Summries { get; set; }
 
-        [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public List<QueryGet>? Queries{ get; set; }
 
     }
 }

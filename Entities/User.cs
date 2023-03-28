@@ -16,9 +16,7 @@ namespace StarterApi.Entities
         [JsonIgnore]
         public string Password { get; set; }
 
-        public virtual ICollection<Query> Queries { get; set; }
-
-        public virtual ICollection<UserStore> UserStore { get; set; }
+        public virtual ICollection<UserSummry> UserSummries { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
 

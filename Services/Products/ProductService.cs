@@ -92,9 +92,7 @@ namespace StarterApi.Services.Products
                 ? new StoreGet
                     {
                         Id = row.Store.Id,
-                        Name = row.Store.Name,
                         Url = row.Store.Url,
-                        Description = row.Store.Description,
                         Platform = queryParams.ShowPlatform == true ? new PlatformGet
                         {
                             Id = row.Store.Platform.Id,

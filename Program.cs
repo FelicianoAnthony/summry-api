@@ -15,12 +15,12 @@ using StarterApi.Services.HttpClients;
 using StarterApi.Services.Permissions;
 using StarterApi.Services.Platforms;
 using StarterApi.Services.Products;
-using StarterApi.Services.Queries;
 using StarterApi.Services.RolePermissions;
 using StarterApi.Services.Roles;
 using StarterApi.Services.Stores;
 using StarterApi.Services.Users;
-using StarterApi.Services.UserStores;
+using StarterApi.Services.UserSummries;
+using StarterApi.Services.UserSummryQueryService;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -161,11 +161,12 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IHelper, Helper>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
-builder.Services.AddScoped<IQueryService, QueryService>();
-builder.Services.AddScoped<IUserStoreService, UserStoreService>();
+// builder.Services.AddScoped<IUserStoreService, UserStoreService>(); // todo: why is this commented out?
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IPermissionService, PermissionService>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
+builder.Services.AddScoped<IUserSummryService, UserSummryService>();
+builder.Services.AddScoped<IUserSummryQueryService, UserSummryQueryService>();
 
 
 // add class that maps to 'JwtConfig' key in appsettings.{{environment}}.json 

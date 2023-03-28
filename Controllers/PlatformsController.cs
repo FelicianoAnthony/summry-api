@@ -69,12 +69,12 @@ namespace StarterApi.Controllers
         }
 
 
-        [HttpPost("{id}/stores")]
-        public async Task<StoreGet> AddStoreToPlatform(long id, [FromBody] StorePost req)
-        {
-            Store newStore = _storeSvc.ConvertToEntity(req);
-            newStore.Platform = await _platformSvc.GetEntity(id, null);
-            return await _storeSvc.Save(newStore);
-        }
+        //[HttpPost("{id}/stores")]
+        //public async Task<StoreGet> AddStoreToPlatform(long id, [FromBody] StorePost req)
+        //{
+        //    Store newStore = _storeSvc.ConvertToEntity(req);
+        //    newStore.Platform = await _platformSvc.GetEntity(id, null);
+        //    return await _storeSvc.Save(newStore);
+        //}
     }
 }

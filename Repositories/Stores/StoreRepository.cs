@@ -61,19 +61,9 @@ namespace StarterApi.Repositories.Stores
 
             Expression<Func<Store, bool>> predicate = PredicateBuilder.New<Store>(true);
 
-            if (queryParams.Name != null)
-            {
-                predicate = predicate.And(s => s.Name.Contains(queryParams.Name));
-            }
-
             if (queryParams.Url != null)
             {
                 predicate = predicate.And(s => s.Url.Contains(queryParams.Url));
-            }
-
-            if (queryParams.Description != null)
-            {
-                predicate = predicate.And(s => s.Description.Contains(queryParams.Description));
             }
 
             if (id != null)

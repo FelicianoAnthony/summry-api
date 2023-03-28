@@ -4,11 +4,10 @@ using StarterApi.ApiModels.Store;
 using StarterApi.Entities;
 using StarterApi.Middlewares.Exceptions;
 using StarterApi.Repositories.UnitOfWork;
-using StarterApi.Services.BaseService;
 
 namespace StarterApi.Services.Stores
 {
-    public class StoreService : IBaseService<Store, StoreGet, StorePost, StorePatch, StoreQueryParams>, IStoreService
+    public class StoreService : IStoreService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -17,14 +16,31 @@ namespace StarterApi.Services.Stores
             _unitOfWork = unitOfWork;
         }
 
-        public Store ConvertToEntity(StorePost req)
+        public Store ConvertToEntity(StorePost req, Platform platform)
         {
             return new Store
             { 
-                Name = req.Name,
                 Url = req.Url,
-                Description = req.Description
+                Platform = platform,
             };
+        }
+
+        public async Task<List<UserSummryStore>> ConvertToEntities(List<StorePost> requestUserStores, UserSummry userSummry)
+        {
+            var userSummryStores = new List<UserSummryStore>();
+            foreach (var requestUserStore in requestUserStores)
+            {
+                
+                Store getStore = await FindOrShouldCreate(requestUserStore);
+                userSummryStores.Add(new UserSummryStore
+                {
+                    Store = getStore,
+                    UserSummryId = userSummry.Id
+                    // User = user
+                }); ;
+            }
+
+            return userSummryStores;
         }
 
         public async Task<bool> Delete(Store store)
@@ -70,9 +86,7 @@ namespace StarterApi.Services.Stores
 
         public async Task<StoreGet> Update(Store existingRow, StorePatch req)
         { 
-            existingRow.Name = req.Name ?? existingRow.Name;
             existingRow.Url = req.Url ?? existingRow.Url;
-            existingRow.Description = req.Description ?? existingRow.Description;
 
             _unitOfWork.Stores.Update(existingRow);
             await _unitOfWork.CompleteAsync();
@@ -87,9 +101,7 @@ namespace StarterApi.Services.Stores
             return new StoreGet
             {
                 Id = row.Id,
-                Name = row.Name,
                 Url = row.Url,
-                Description = row.Description,
                 Platform = queryParams.ShowPlatform == true ? new PlatformGet 
                     { 
                         Id = row.Platform.Id,
@@ -117,11 +129,25 @@ namespace StarterApi.Services.Stores
         {
             StoreQueryParams queryParams = new() { Url = req.Url };
             Store store = await _unitOfWork.Stores.FindOneByParams(queryParams);
+            Platform platform = await StorePlatform(req.Url);
             if (store == null)
             {
-                store = ConvertToEntity(req);
+                store = ConvertToEntity(req, platform);
             }
             return store;
+        }
+
+        // private 
+
+        public async Task<Platform> StorePlatform(string url)
+        {
+            // todo: do stuff to check if store can be scraped using shopify, citihive, winefetch...
+            Platform platform = await _unitOfWork.Platforms.FindByName("shopify");
+            if (platform == null)
+            {
+                throw new Exception($"you did something dumb");
+            }
+            return platform;
         }
     }
 }

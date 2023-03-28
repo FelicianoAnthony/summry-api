@@ -1,27 +1,28 @@
 ﻿using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
-namespace StarterApi.ApiModels.Query
+namespace StarterApi.ApiModels.UserSummryQuery
 {
-    public class QueryGet : BaseQuery
+    public class UserSummryQueryGet : BaseUserSummryQuery
     {
         [JsonProperty(Required = Required.Always)]
         public long Id { get; set; }
 
-        [JsonProperty(Required = Required.AllowNull)]
-        public override string? Producer { get; set; }
-
 
         [JsonProperty(Required = Required.AllowNull)]
-        public override string? Bottle { get; set; }
+        public override string? Merchant { get; set; }
 
 
         [JsonProperty(Required = Required.AllowNull)]
-        public override float? Price { get; set; }
+        public override string? Product { get; set; }
 
 
         [JsonProperty(Required = Required.AllowNull)]
-        public override int? MostRecentMinutes { get; set; }
+        public float? Price { get; set; }
+
+
+        [JsonProperty(Required = Required.AllowNull)]
+        public int? MostRecentMinutes { get; set; }
 
 
         // foreign keys

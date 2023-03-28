@@ -26,15 +26,17 @@ namespace LbAutomationPortalApi.Repositories
 
         public DbSet<Platform> Platform { get; set; }
 
-        public DbSet<Query> Query { get; set; }
+        public DbSet<UserSummryQuery> UserSummryQueries { get; set; }
 
-        public DbSet<UserStore> UserStore { get; set; }
+        public DbSet<UserSummryStore> UserSummryStores { get; set; }
 
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<Permission> Permissions { get; set; }
 
         public DbSet<RolePermission> RolePermissions { get; set; }
+
+        public DbSet<UserSummry> UserSummries { get; set; }
 
         public DbSet<User> Users { get; set; } // change this to Users to match DB...
 
@@ -62,10 +64,16 @@ namespace LbAutomationPortalApi.Repositories
             modelBuilder.Entity<Role>().HasIndex(r => r.Name).IsUnique();
 
             // composite unique index 
-            modelBuilder.Entity<UserStore>().HasIndex(us => new { us.StoreId, us.UserId }).IsUnique();
+            modelBuilder.Entity<UserSummryStore>().HasIndex(uss => new { uss.StoreId, uss.UserSummryId }).IsUnique();
             modelBuilder.Entity<Permission>().HasIndex(p => new { p.Controller, p.Action }).IsUnique();
             modelBuilder.Entity<RolePermission>().HasIndex(rp => new { rp.RoleId, rp.PermissionId }).IsUnique();
             modelBuilder.Entity<UserRole>().HasIndex(urp => new { urp.UserId, urp.RoleId }).IsUnique();
+            modelBuilder.Entity<UserSummry>().HasIndex(us => new { us.UserId, us.Title }).IsUnique();
+
+            // default boolean values 
+            modelBuilder.Entity<UserSummry>().Property(us => us.IsPaused).HasDefaultValue(false);
+            modelBuilder.Entity<UserSummryStore>().Property(uss => uss.IsPaused).HasDefaultValue(false);
+            modelBuilder.Entity<UserSummryQuery>().Property(usq => usq.IsPaused).HasDefaultValue(false);
 
 
 
@@ -75,23 +83,34 @@ namespace LbAutomationPortalApi.Repositories
                 .WithOne(p => p.Store)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // don't delete a store if there's at least 1 userStoreId associated to it
+            // don't delete a store if there's at least 1 UserSummryStore associated to it
             modelBuilder.Entity<Store>()
-                .HasMany(s => s.UserStore)
-                .WithOne(userStore => userStore.Store)
+                .HasMany(s => s.UserSummryStore)
+                .WithOne(uss => uss.Store)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // don't delete a user if there's at least 1 query associated to it
+            // don't delete a user if there's at least 1 UserSummry associated to it
             modelBuilder.Entity<User>()
-                .HasMany(u => u.Queries)
-                .WithOne(q => q.User)
+                .HasMany(u => u.UserSummries)
+                .WithOne(userSum => userSum.User)
                 .OnDelete(DeleteBehavior.Restrict);
-
 
             // don't delete a user if there's at least 1 role permissionId associated to it
             modelBuilder.Entity<User>()
                 .HasMany(u => u.UserRoles)
                 .WithOne(urp => urp.User)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // dont delete a UserSummry if there's at least 1 query associated with it
+            modelBuilder.Entity<UserSummry>()
+                .HasMany(us => us.UserSummryQueries)
+                .WithOne(usq => usq.UserSummry)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // dont delete a UserSummry if there's at least 1 store associated with it
+            modelBuilder.Entity<UserSummry>()
+                .HasMany(us => us.UserSummryStores)
+                .WithOne(uss => uss.UserSummry)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // don't delete a platform if there's at least 1 store associated to it
