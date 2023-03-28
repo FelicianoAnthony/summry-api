@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.Platform;
+﻿using StarterApi.ApiModels.Platform;
 using StarterApi.ApiModels.Store;
 using StarterApi.Entities;
 using StarterApi.Middlewares.Exceptions;
@@ -92,9 +91,7 @@ namespace StarterApi.Services.Platforms
                     ? row.Stores.Select(s => new StoreGet
                     {
                         Id = s.Id,
-                        Name = s.Name,
                         Url = s.Url,
-                        Description = s.Description
                     }).ToList()
                     : null,
 

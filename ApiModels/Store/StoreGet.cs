@@ -12,24 +12,16 @@ namespace StarterApi.ApiModels.Store
 
 
         [JsonProperty(Required = Required.Always)]
-        public override string Name { get; set; }
-
-
-        [JsonProperty(Required = Required.Always)]
         public override string Url { get; set; }
 
 
-        [JsonProperty(Required = Required.Always)]
-        public override string Description { get; set; }
-
-
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public PlatformGet? Platform { get; set; }
+        public PlatformGet Platform { get; set; }
 
 
         // foreign keys
         [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public List<ProductGet>? Products { get; set; }
+        public List<ProductGet> Products { get; set; }
 
     }
 }

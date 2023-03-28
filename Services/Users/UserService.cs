@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.Login;
-using StarterApi.ApiModels.Query;
+﻿using StarterApi.ApiModels.Login;
 using StarterApi.ApiModels.Store;
 using StarterApi.ApiModels.User;
+using StarterApi.ApiModels.UserSummry;
+using StarterApi.ApiModels.UserSummryQuery;
 using StarterApi.Constants;
 using StarterApi.Entities;
 using StarterApi.Helpers;
@@ -148,26 +148,27 @@ namespace StarterApi.Services.Users
                 FirstName = row.FirstName,
                 LastName = row.LastName,
                 Email = row.Email,
-                Stores = queryParams.ShowStores == true ? 
-                    row.UserStore.Select(us => new StoreGet 
-                    {
-                        Id = us.Store.Id,
-                        Name = us.Store.Name,
-                        Url = us.Store.Url,
-                        Description = us.Store.Description
-                    }).ToList()
-                : null,
-                Queries = queryParams.ShowQueries == true ?
-                    row.Queries.Select(q => new QueryGet
-                    {
-                        Id = q.Id,
-                        Producer = q.Producer,
-                        Bottle = q.Bottle,
-                        Price = q.Price,
-                        MostRecentMinutes = q.MostRecentMinutes,
-                    }).ToList()
-                : null
+                Summries = row.UserSummries.Select(userSummry => new UserSummryGet {
+                    Id = userSummry.Id,
+                    Title = userSummry.Title,
+                    Slug = userSummry.Slug,
 
+                    Queries = userSummry.UserSummryQueries.Select(userQuery => new UserSummryQueryGet
+                    { 
+                        Id = userQuery.Id,
+                        Merchant = userQuery.Merchant,
+                        Product = userQuery.Product,
+                        Price = userQuery.Price,
+                        MostRecentMinutes = userQuery.MostRecentMinutes
+                    }).ToList(),
+
+                    Stores = userSummry.UserSummryStores.Select(userStore => new StoreGet 
+                    { 
+                        Id = userStore.Store.Id,
+                        Url = userStore.Store.Url
+                    }).ToList()
+
+                }).ToList()
             };
         }
 

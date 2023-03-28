@@ -2,13 +2,14 @@
 using StarterApi.Repositories.Permissions;
 using StarterApi.Repositories.Platforms;
 using StarterApi.Repositories.Products;
-using StarterApi.Repositories.Queries;
+using StarterApi.Repositories.UserSummryQueries;
 using StarterApi.Repositories.RolePermissions;
 using StarterApi.Repositories.Roles;
 using StarterApi.Repositories.Stores;
 using StarterApi.Repositories.UserRoles;
 using StarterApi.Repositories.Users;
-using StarterApi.Repositories.UserStores;
+using StarterApi.Repositories.UserSummryStores;
+using StarterApi.Repositories.UserSummries;
 
 namespace StarterApi.Repositories.UnitOfWork
 {
@@ -24,7 +25,7 @@ namespace StarterApi.Repositories.UnitOfWork
 
         public IProductRepository Products { get; private set; }
 
-        public IQueryRepository Queries { get; private set; }
+        public IUserSummryQueryRepository UserSummryQueries { get; private set; }
 
         public IRolePermissionRepository RolePermissions { get; private set; }
 
@@ -34,7 +35,10 @@ namespace StarterApi.Repositories.UnitOfWork
 
         public IUserRepository Users { get; private set; }
 
-        public IUserStoreRepository UserStore { get; private set; }
+        public IUserSummryStoreRepository UserSummryStores { get; private set; }
+
+        public IUserSummryRepository UserSummries { get; private set; }
+
 
         public UnitOfWork(StarterApiContext context)
         {
@@ -44,11 +48,12 @@ namespace StarterApi.Repositories.UnitOfWork
             Platforms = new PlatformRepository(context);
             Products = new ProductRepository(context);
             RolePermissions = new RolePermissionRepository(context);
-            Queries = new QueryRepository(context);
+            UserSummryQueries = new UserSummryQueryRepository(context);
             Roles = new RoleRepository(context);
             UserRoles = new UserRoleRepository(context);
             Users = new UserRepository(context);
-            UserStore = new UserStoreRespository(context);
+            UserSummryStores = new UserSummryStoreRepository(context);
+            UserSummries = new UserSummryRepository(context);
         }
 
         public async Task CompleteAsync()

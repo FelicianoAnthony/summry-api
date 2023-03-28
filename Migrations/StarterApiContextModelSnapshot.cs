@@ -17,7 +17,7 @@ namespace StarterApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("TestSchema")
+                .HasDefaultSchema("public")
                 .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -57,7 +57,7 @@ namespace StarterApi.Migrations
                     b.HasIndex("Controller", "Action")
                         .IsUnique();
 
-                    b.ToTable("Permissions", "TestSchema");
+                    b.ToTable("Permissions", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.Platform", b =>
@@ -94,7 +94,7 @@ namespace StarterApi.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Platform", "TestSchema");
+                    b.ToTable("Platform", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.Product", b =>
@@ -138,48 +138,7 @@ namespace StarterApi.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.ToTable("Products", "TestSchema");
-                });
-
-            modelBuilder.Entity("StarterApi.Entities.Query", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Bottle")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("MostRecentMinutes")
-                        .HasColumnType("integer");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Producer")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Query", "TestSchema");
+                    b.ToTable("Products", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.Role", b =>
@@ -212,7 +171,7 @@ namespace StarterApi.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Roles", "TestSchema");
+                    b.ToTable("Roles", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.RolePermission", b =>
@@ -245,7 +204,7 @@ namespace StarterApi.Migrations
                     b.HasIndex("RoleId", "PermissionId")
                         .IsUnique();
 
-                    b.ToTable("RolePermissions", "TestSchema");
+                    b.ToTable("RolePermissions", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.Store", b =>
@@ -261,14 +220,6 @@ namespace StarterApi.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<long>("PlatformId")
                         .HasColumnType("bigint");
@@ -287,7 +238,7 @@ namespace StarterApi.Migrations
                     b.HasIndex("Url")
                         .IsUnique();
 
-                    b.ToTable("Stores", "TestSchema");
+                    b.ToTable("Stores", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.User", b =>
@@ -328,7 +279,7 @@ namespace StarterApi.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", "TestSchema");
+                    b.ToTable("Users", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.UserRole", b =>
@@ -361,10 +312,10 @@ namespace StarterApi.Migrations
                     b.HasIndex("UserId", "RoleId")
                         .IsUnique();
 
-                    b.ToTable("UserRoles", "TestSchema");
+                    b.ToTable("UserRoles", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserStore", b =>
+            modelBuilder.Entity("StarterApi.Entities.UserSummry", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -378,8 +329,18 @@ namespace StarterApi.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("StoreId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsPaused")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("timestamp with time zone");
@@ -389,12 +350,94 @@ namespace StarterApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("StoreId", "UserId")
+                    b.HasIndex("UserId", "Title")
                         .IsUnique();
 
-                    b.ToTable("UserStore", "TestSchema");
+                    b.ToTable("UserSummries", "public");
+                });
+
+            modelBuilder.Entity("StarterApi.Entities.UserSummryQuery", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsPaused")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Merchant")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("MostRecentMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<float?>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Product")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("UserSummryId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserSummryId");
+
+                    b.ToTable("UserSummryQueries", "public");
+                });
+
+            modelBuilder.Entity("StarterApi.Entities.UserSummryStore", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsPaused")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<long>("StoreId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("UserSummryId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserSummryId");
+
+                    b.HasIndex("StoreId", "UserSummryId")
+                        .IsUnique();
+
+                    b.ToTable("UserSummryStores", "public");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.Product", b =>
@@ -406,17 +449,6 @@ namespace StarterApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Store");
-                });
-
-            modelBuilder.Entity("StarterApi.Entities.Query", b =>
-                {
-                    b.HasOne("StarterApi.Entities.User", "User")
-                        .WithMany("Queries")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.RolePermission", b =>
@@ -468,23 +500,45 @@ namespace StarterApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserStore", b =>
+            modelBuilder.Entity("StarterApi.Entities.UserSummry", b =>
+                {
+                    b.HasOne("StarterApi.Entities.User", "User")
+                        .WithMany("UserSummries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StarterApi.Entities.UserSummryQuery", b =>
+                {
+                    b.HasOne("StarterApi.Entities.UserSummry", "UserSummry")
+                        .WithMany("UserSummryQueries")
+                        .HasForeignKey("UserSummryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("UserSummry");
+                });
+
+            modelBuilder.Entity("StarterApi.Entities.UserSummryStore", b =>
                 {
                     b.HasOne("StarterApi.Entities.Store", "Store")
-                        .WithMany("UserStore")
+                        .WithMany("UserSummryStore")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("StarterApi.Entities.User", "User")
-                        .WithMany("UserStore")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("StarterApi.Entities.UserSummry", "UserSummry")
+                        .WithMany("UserSummryStores")
+                        .HasForeignKey("UserSummryId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Store");
 
-                    b.Navigation("User");
+                    b.Navigation("UserSummry");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.Permission", b =>
@@ -506,16 +560,21 @@ namespace StarterApi.Migrations
                 {
                     b.Navigation("Products");
 
-                    b.Navigation("UserStore");
+                    b.Navigation("UserSummryStore");
                 });
 
             modelBuilder.Entity("StarterApi.Entities.User", b =>
                 {
-                    b.Navigation("Queries");
-
                     b.Navigation("UserRoles");
 
-                    b.Navigation("UserStore");
+                    b.Navigation("UserSummries");
+                });
+
+            modelBuilder.Entity("StarterApi.Entities.UserSummry", b =>
+                {
+                    b.Navigation("UserSummryQueries");
+
+                    b.Navigation("UserSummryStores");
                 });
 #pragma warning restore 612, 618
         }

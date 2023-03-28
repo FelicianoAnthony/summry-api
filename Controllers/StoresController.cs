@@ -41,8 +41,8 @@ namespace StarterApi.Controllers
         [HttpPost]
         public async Task<ActionResult<StoreGet>> PostStore(StorePost store)
         {
-            Store newRow = _storeSvc.ConvertToEntity(store);
-            newRow.Platform = await _platformSvc.FindByName(store.Platform);
+            Platform platform = await _platformSvc.FindByName("shopify"); // todo: change this...
+            Store newRow = _storeSvc.ConvertToEntity(store, platform);
             return await _storeSvc.Save(newRow);
         }
 
