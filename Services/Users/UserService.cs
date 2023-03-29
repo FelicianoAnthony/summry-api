@@ -3,53 +3,42 @@ using StarterApi.ApiModels.Store;
 using StarterApi.ApiModels.User;
 using StarterApi.ApiModels.UserSummry;
 using StarterApi.ApiModels.UserSummryQuery;
-using StarterApi.Constants;
 using StarterApi.Entities;
-using StarterApi.Helpers;
+using StarterApi.Helpers.AuthHelper;
 using StarterApi.Middlewares.Exceptions;
 using StarterApi.Repositories.UnitOfWork;
-using System.Text.RegularExpressions;
 
 namespace StarterApi.Services.Users
 {
     public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IHelper _helperSvc;
-        private readonly ILogger<UserService> _logger;
-        private readonly RegexConfig _regexCfg;
+        private readonly IAuthHelpers _authHelper;
 
-        public UserService(IUnitOfWork unitOfWork, IHelper helperSvc, ILogger<UserService> logger, RegexConfig regexCfg)
+        public UserService(IUnitOfWork unitOfWork, IAuthHelpers authHelper)
         {
             _unitOfWork = unitOfWork;
-            _helperSvc = helperSvc;
-            _logger = logger;
-            _regexCfg = regexCfg;
+            _authHelper = authHelper;
         }
 
         public async Task<LoginResponse> Authenticate(LoginRequest request)
-        {
-            
-            _logger.LogInformation($"1) START AUTH ENDPOINT\n{_helperSvc.Serialize(request)}\n\n");
-            
-            var user = await FindUser(request.Email);
-            var passwordMatches = _helperSvc.PasswordMatchesHash(request.Password, user.Password);
+        {            
+            var user = await UserMustExist(request.Email);
+            var passwordMatches = _authHelper.PasswordMatchesHash(request.Password, user.Password);
             if (!passwordMatches)
             {
                 throw new BadHttpRequestException($"Found email but incorrect password.");
             }
-            _logger.LogInformation($"2) USER AUTHENTICATED\n{_helperSvc.Serialize(request)}\n\n");
 
-            var token = _helperSvc.GenerateJwtToken(user);
-            _logger.LogInformation($"3) JWT GENERATED");
+            var token = _authHelper.GenerateJwtToken(user);
             return new LoginResponse { Token = token };
         }
 
         public async Task<long> CreateUser(UserPost req)
         {
+            _authHelper.CheckPasswordStrength(req.Password);
+            await UserMustNotExist(req.Email);
             User newRow = ConvertToEntity(req);
-            CheckPasswordStrength(req.Password);
-            await DoesUserExist(req.Email);
             return await Save(newRow);
         }
 
@@ -93,11 +82,11 @@ namespace StarterApi.Services.Users
                 FirstName = req.FirstName,
                 LastName = req.LastName,
                 Email = req.Email,
-                Password = _helperSvc.GenerateHash(req.Password)
+                Password = _authHelper.GenerateHash(req.Password)
             };
         }
 
-        private async Task DoesUserExist(string email)
+        private async Task UserMustNotExist(string email)
         {
             UserQueryParams queryParams = new() { Email = email };
             var user = await _unitOfWork.Users.FindUserByProps(queryParams);
@@ -108,25 +97,8 @@ namespace StarterApi.Services.Users
             return;
         }
 
-        private void CheckPasswordStrength(string password)
-        {
-            string pattern = $@"{_regexCfg.PasswordStrength}";
-            Regex rg = new(pattern);
-            Match isMatch = rg.Match(password);
-            if (string.IsNullOrEmpty(isMatch.Value))
-            {
-                string msg = $"At least 1 of the following password requirements were not met\n\n" +
-                    $"at least 1 uppercase letter\n" +
-                    $"at least 1 special character (!@#$&*)\n" +
-                    $"at least 1 digit\n" +
-                    $"at least 8 characters in length but no more than 50";
-                throw new BadHttpRequestException(msg);
-            }
-            return;
-        }
 
-
-        private async Task<User> FindUser(string email)
+        private async Task<User> UserMustExist(string email)
         {
             UserQueryParams queryParams = new(){ Email = email };
             var user = await _unitOfWork.Users.FindUserByProps(queryParams);

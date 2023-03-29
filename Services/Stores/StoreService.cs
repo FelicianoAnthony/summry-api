@@ -1,19 +1,25 @@
 ﻿using StarterApi.ApiModels.Platform;
 using StarterApi.ApiModels.Product;
 using StarterApi.ApiModels.Store;
+using StarterApi.Constants;
 using StarterApi.Entities;
 using StarterApi.Middlewares.Exceptions;
 using StarterApi.Repositories.UnitOfWork;
+using StarterApi.Services.HttpClients;
 
 namespace StarterApi.Services.Stores
 {
     public class StoreService : IStoreService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ScrapeApprovalClient _scrapeApprovalClient;
+        private readonly ScraperPlatformConfig _platformCfg;
 
-        public StoreService(IUnitOfWork unitOfWork)
+        public StoreService(IUnitOfWork unitOfWork, ScrapeApprovalClient scrapeApprovalClient, ScraperPlatformConfig platformCfg)
         {
             _unitOfWork = unitOfWork;
+            _scrapeApprovalClient = scrapeApprovalClient;
+            _platformCfg = platformCfg;
         }
 
         public Store ConvertToEntity(StorePost req, Platform platform)
@@ -30,14 +36,19 @@ namespace StarterApi.Services.Stores
             var userSummryStores = new List<UserSummryStore>();
             foreach (var requestUserStore in requestUserStores)
             {
-                
-                Store getStore = await FindOrShouldCreate(requestUserStore);
+                // todo: silently fail or not?
+                var urlPlatform = await CheckUrlScrapability(requestUserStore.Url);
+                if (urlPlatform == null)
+                {
+                    // throw new Exception($"{requestUserStore.Url} does not match a platform for which scraping logic has been developed");
+                    continue;
+                }
+                Store getStore = await FindOrShouldCreate(requestUserStore, urlPlatform);
                 userSummryStores.Add(new UserSummryStore
                 {
                     Store = getStore,
                     UserSummryId = userSummry.Id
-                    // User = user
-                }); ;
+                });
             }
 
             return userSummryStores;
@@ -125,11 +136,13 @@ namespace StarterApi.Services.Stores
             };
         }
 
-        public async Task<Store> FindOrShouldCreate(StorePost req)
+
+        // this method is always called once it's known a store can be scraped...
+        public async Task<Store> FindOrShouldCreate(StorePost req, Platform platform)
         {
             StoreQueryParams queryParams = new() { Url = req.Url };
+
             Store store = await _unitOfWork.Stores.FindOneByParams(queryParams);
-            Platform platform = await StorePlatform(req.Url);
             if (store == null)
             {
                 store = ConvertToEntity(req, platform);
@@ -137,17 +150,34 @@ namespace StarterApi.Services.Stores
             return store;
         }
 
-        // private 
 
-        public async Task<Platform> StorePlatform(string url)
+        // private 
+        public async Task<Platform> CheckUrlScrapability(string url)
         {
-            // todo: do stuff to check if store can be scraped using shopify, citihive, winefetch...
-            Platform platform = await _unitOfWork.Platforms.FindByName("shopify");
-            if (platform == null)
-            {
-                throw new Exception($"you did something dumb");
-            }
-            return platform;
+            /* todo: talk about preventing adding a store to a summry if scraper cant scrape it
+                - commented out code below works.
+                - code validates the url being added in a summry can be scraped by python script
+             */
+            return await _unitOfWork.Platforms.FindByName(_platformCfg.Shopify);
+            //var platforms = await _unitOfWork.Platforms.GetEntities(null);
+
+            //Platform urlPlatform = null;
+            //foreach (var platform in platforms)
+            //{
+            //    if (platform.Name.ToLower() == _platformCfg.Shopify)
+            //    {
+            //        if (await _scrapeApprovalClient.IsShopifyScrapeable(url))
+            //        {
+            //            urlPlatform = platform;
+            //            break;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        throw new Exception($"DEVELOPER ERROR: logic to scrape '{platform.Name}' not implemented.  delete this platform to fix the error.");
+            //    }
+            //}
+            //return urlPlatform;
         }
     }
 }

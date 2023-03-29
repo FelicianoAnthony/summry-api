@@ -8,5 +8,7 @@
 
         public string? JwtMeIdentifier { get; set; }
 
+        public int ExpiresInHours { get; set; }
+
     }
 }

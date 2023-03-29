@@ -27,42 +27,42 @@ namespace StarterApi.Services.UserSummries
             };
         }
 
-        public async Task<bool> Delete(UserSummry row)
+        public async Task Delete(UserSummry row)
         {
             _unitOfWork.UserSummryQueries.DeleteMany(row.UserSummryQueries);
             _unitOfWork.UserSummryStores.DeleteMany(row.UserSummryStores);
             _unitOfWork.UserSummries.Delete(row);
             await _unitOfWork.CompleteAsync();
-            return true;
+            return;
         }
 
 
-        public async Task<List<UserSummryGet>> GetMany(UserSummryQueryParams? queryParams)
+        public async Task<List<UserSummryGet>> GetMany(UserSummryQueryParams queryParams)
         {
             var entities = await GetEntities(queryParams);
             return entities.Select(s => TransformOne(s, queryParams)).ToList();
         }
 
 
-        public async Task<List<UserSummry>> GetEntities(UserSummryQueryParams? queryParams)
+        public async Task<List<UserSummry>> GetEntities(UserSummryQueryParams queryParams)
         { 
             var entities = await _unitOfWork.UserSummries.GetEntities(queryParams);
             return entities.ToList();
         }
 
 
-        public async Task<UserSummryGet> GetOne(long id, UserSummryQueryParams? queryParams)
+        public async Task<UserSummryGet> GetOne(long id, UserSummryQueryParams queryParams)
         {
             return TransformOne(await GetEntity(id, queryParams), queryParams);
         }
 
 
-        public async Task<UserSummry> GetEntity(long id, UserSummryQueryParams? queryParams)
+        public async Task<UserSummry> GetEntity(long id, UserSummryQueryParams queryParams)
         {
             UserSummry userSummry = await _unitOfWork.UserSummries.GetEntity(id, queryParams);
             if (userSummry == null)
             {
-                throw new NotFoundException($"User Summry ID '{id}' was not found or you dont have permission to view");
+                throw new NotFoundException($"user summry ID '{id}' was not found or user requesting does not have permission to view");
             }
             return userSummry;
         }
@@ -92,7 +92,7 @@ namespace StarterApi.Services.UserSummries
         }
 
 
-        public UserSummryGet TransformOne(UserSummry row, UserSummryQueryParams? queryParams)
+        public UserSummryGet TransformOne(UserSummry row, UserSummryQueryParams queryParams)
         {
             queryParams ??= new UserSummryQueryParams();
 

@@ -7,7 +7,7 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 using StarterApi.Constants;
-using StarterApi.Helpers;
+using StarterApi.Helpers.AuthHelper;
 using StarterApi.Middlewares.Authorizations;
 using StarterApi.Middlewares.Exceptions;
 using StarterApi.Repositories.UnitOfWork;
@@ -159,9 +159,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IStoreService, StoreService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IHelper, Helper>();
+builder.Services.AddScoped<IAuthHelpers, AuthHelpers>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
-// builder.Services.AddScoped<IUserStoreService, UserStoreService>(); // todo: why is this commented out?
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IPermissionService, PermissionService>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
@@ -172,13 +171,13 @@ builder.Services.AddScoped<IUserSummryQueryService, UserSummryQueryService>();
 // add class that maps to 'JwtConfig' key in appsettings.{{environment}}.json 
 builder.Services.AddSingleton(builder.Configuration.GetSection("JwtConfig").Get<JwtConfig>());
 builder.Services.AddSingleton(builder.Configuration.GetSection("RegexConfig").Get<RegexConfig>());
+builder.Services.AddSingleton(builder.Configuration.GetSection("ScraperPlatformConfig").Get<ScraperPlatformConfig>());
 
 
-// add HTTP client service config 
-builder.Services.AddHttpClient<HttpClientService>(c =>
-{
-    c.BaseAddress = new Uri(builder.Configuration.GetValue<string>("HttpClientConfigs:ClientConfig:url"));
-});
+
+
+// add HTTP classes
+builder.Services.AddScoped<ScrapeApprovalClient>();
 
 // serializer services -- // this hides null values globally 
 //builder.Services.AddMvc()

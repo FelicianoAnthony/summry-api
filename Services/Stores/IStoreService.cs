@@ -9,6 +9,8 @@ namespace StarterApi.Services.Stores
 
         Task<List<UserSummryStore>> ConvertToEntities(List<StorePost> requestUserStores, UserSummry userSummry);
 
+        Task<Platform> CheckUrlScrapability(string url);
+
         Task<bool> Delete(Store store);
 
         Task<List<StoreGet>> GetMany(StoreQueryParams? queryParams);
@@ -23,6 +25,5 @@ namespace StarterApi.Services.Stores
 
         StoreGet TransformOne(Store row, StoreQueryParams? queryParams);
 
-        Task<Store> FindOrShouldCreate(StorePost req);
     }
 }
