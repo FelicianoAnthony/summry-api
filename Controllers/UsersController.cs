@@ -3,7 +3,7 @@ using StarterApi.Entities;
 using StarterApi.Services.Users;
 using StarterApi.ApiModels.User;
 using Microsoft.AspNetCore.Authorization;
-using StarterApi.Helpers;
+using StarterApi.Helpers.AuthHelper;
 
 namespace StarterApi.Controllers
 {
@@ -12,15 +12,15 @@ namespace StarterApi.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userSvc;
-        private readonly IHelper _helperSvc;
+        private readonly IAuthHelpers _authHelpers;
 
         public UsersController(
             IUserService userSvc,
-            IHelper helperSvc
+            IAuthHelpers authHelpers
         )
         {
             _userSvc = userSvc;
-            _helperSvc = helperSvc;
+            _authHelpers = authHelpers;
         }
 
 
@@ -31,11 +31,12 @@ namespace StarterApi.Controllers
             return await _userSvc.GetMany(queryParams);
         }
 
+
         [Authorize]
         [HttpGet("me")]
         public async Task<ActionResult<UserGet>> GetMe([FromQuery] UserQueryParams queryParams)
         {
-            int userId = _helperSvc.GetUserFromJwt(Request.HttpContext.User);
+            int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
             return await _userSvc.GetOne(userId, queryParams);
         }
 

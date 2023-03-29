@@ -4,7 +4,6 @@ using StarterApi.ApiModels.Store;
 using StarterApi.Services.Stores;
 using StarterApi.Services.Products;
 using StarterApi.ApiModels.Product;
-using StarterApi.Services.Platforms;
 
 namespace StarterApi.Controllers
 {
@@ -14,13 +13,11 @@ namespace StarterApi.Controllers
     {
         private readonly IStoreService _storeSvc;
         private readonly IProductService _productSvc;
-        private readonly IPlatformService _platformSvc;
 
-        public StoresController(IStoreService storeSvc, IProductService productSvc, IPlatformService platformSvc)
+        public StoresController(IStoreService storeSvc, IProductService productSvc)
         {
             _storeSvc = storeSvc;
             _productSvc = productSvc;
-            _platformSvc = platformSvc;
         }
 
 
@@ -41,7 +38,11 @@ namespace StarterApi.Controllers
         [HttpPost]
         public async Task<ActionResult<StoreGet>> PostStore(StorePost store)
         {
-            Platform platform = await _platformSvc.FindByName("shopify"); // todo: change this...
+            Platform platform = await _storeSvc.CheckUrlScrapability(store.Url);
+            if (platform == null)
+            {
+                throw new Exception($"url doesnt match any platforms in DB for which scraping logic has been developed for");
+            }
             Store newRow = _storeSvc.ConvertToEntity(store, platform);
             return await _storeSvc.Save(newRow);
         }

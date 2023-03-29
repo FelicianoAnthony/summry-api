@@ -7,7 +7,7 @@ namespace StarterApi.Services.UserSummries
     {
         UserSummry ConvertToEntity(UserSummryPost req, User currUser);
 
-        Task<bool> Delete(UserSummry row);
+        Task Delete(UserSummry row);
 
         Task<List<UserSummryGet>> GetMany(UserSummryQueryParams? queryParams);
 

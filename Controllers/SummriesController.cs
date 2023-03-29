@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StarterApi.ApiModels.User;
 using StarterApi.ApiModels.UserSummry;
 using StarterApi.Entities;
-using StarterApi.Helpers;
+using StarterApi.Helpers.AuthHelper;
 using StarterApi.Services.Stores;
 using StarterApi.Services.Users;
 using StarterApi.Services.UserSummries;
@@ -17,21 +17,21 @@ namespace StarterApi.Controllers
     public class SummriesController : ControllerBase
     {
         private readonly IUserSummryService _userSummrySvc;
-        private readonly IHelper _helpers;
+        private readonly IAuthHelpers _authHelpers;
         private readonly IUserService _userSvc;
         private readonly IUserSummryQueryService _userSummryQuerySvc;
         private readonly IStoreService _storeSvc;
 
         public SummriesController(
             IUserSummryService userSummrySvc,
-            IHelper helpers,
+            IAuthHelpers authHelpers,
             IUserService userSvc,
             IUserSummryQueryService userSummryQuerySvc,
             IStoreService storeSvc
             )
         {
             _userSummrySvc = userSummrySvc;
-            _helpers = helpers;
+            _authHelpers = authHelpers;
             _userSvc = userSvc;
             _userSummryQuerySvc = userSummryQuerySvc;
             _storeSvc = storeSvc;
@@ -41,7 +41,7 @@ namespace StarterApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<UserSummryGet>>> GetMany()
         {
-            int userId = _helpers.GetUserFromJwt(Request.HttpContext.User);
+            int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
 
             UserGet user = await _userSvc.GetOne(userId, null);
             return user.Summries;
@@ -51,7 +51,7 @@ namespace StarterApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserSummryGet>> GetOne(long id)
         {
-            int userId = _helpers.GetUserFromJwt(Request.HttpContext.User);
+            int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
             User currUser = await _userSvc.GetEntity(userId, null);
 
             var queryParams = new UserSummryQueryParams() { UserId = currUser.Id };
@@ -62,7 +62,7 @@ namespace StarterApi.Controllers
         [HttpPost]
         public async Task<ActionResult<UserSummryGet>> AddSummry([FromBody] UserSummryPost req)
         {
-            int userId = _helpers.GetUserFromJwt(Request.HttpContext.User);
+            int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
             User currUser = await _userSvc.GetEntity(userId, null);
 
             UserSummry newRow = _userSummrySvc.ConvertToEntity(req, currUser);
@@ -73,7 +73,7 @@ namespace StarterApi.Controllers
         [HttpPut("{id}")]
         public async Task<UserSummryGet> ReplaceSummry(long id, [FromBody] UserSummryPut req)
         {
-            int userId = _helpers.GetUserFromJwt(Request.HttpContext.User);
+            int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
             await _userSvc.GetEntity(userId, null);
 
             var userSummryFilters = new UserSummryQueryParams() { UserId = userId };
@@ -89,7 +89,7 @@ namespace StarterApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            int userId = _helpers.GetUserFromJwt(Request.HttpContext.User);
+            int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
             await _userSvc.GetEntity(userId, null);
 
             var userSummryFilters = new UserSummryQueryParams() { UserId = userId };
