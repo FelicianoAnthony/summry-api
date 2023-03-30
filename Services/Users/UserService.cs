@@ -43,14 +43,22 @@ namespace SummryApi.Services.Users
         }
 
 
-        public async Task<bool> Delete(User store)
+        public async Task<bool> Delete(User user)
         {
-            _unitOfWork.Users.Delete(store);
+            // queries and stores associated with a summry must be deleted before a summry is deleted
+            foreach (var summry in user.UserSummries)
+            {
+                _unitOfWork.UserSummryStores.DeleteMany(summry.UserSummryStores);
+                _unitOfWork.UserSummryQueries.DeleteMany(summry.UserSummryQueries);
+            }
+            _unitOfWork.UserSummries.DeleteMany(user.UserSummries);
+
+            _unitOfWork.Users.Delete(user);
             await _unitOfWork.CompleteAsync();
             return true;
         }
 
-        public async Task<List<UserGet>> GetMany(UserQueryParams? queryParams)
+        public async Task<List<UserGet>> GetMany(UserQueryParams queryParams)
         {
             var userEntities = await _unitOfWork.Users.GetEntities(queryParams);
             return userEntities.Select(s => TransformOne(s, queryParams)).ToList();
@@ -120,7 +128,7 @@ namespace SummryApi.Services.Users
                 FirstName = row.FirstName,
                 LastName = row.LastName,
                 Email = row.Email,
-                Summries = row.UserSummries.Select(userSummry => new UserSummryGet {
+                Summries = queryParams.ShowSummries != null ? row.UserSummries.Select(userSummry => new UserSummryGet {
                     Id = userSummry.Id,
                     Title = userSummry.Title,
                     Slug = userSummry.Slug,
@@ -140,7 +148,8 @@ namespace SummryApi.Services.Users
                         Url = userStore.Store.Url
                     }).ToList()
 
-                }).ToList()
+                }).ToList() 
+                : null
             };
         }
 
