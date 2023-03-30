@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using StarterApi.Entities;
-using StarterApi.ApiModels.Role;
-using StarterApi.Services.Roles;
+using SummryApi.Entities;
+using SummryApi.ApiModels.Role;
+using SummryApi.Services.Roles;
 
-namespace StarterApi.Controllers
+namespace SummryApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

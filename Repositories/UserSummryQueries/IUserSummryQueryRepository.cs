@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.UserSummryQuery;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.ApiModels.UserSummryQuery;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.UserSummryQueries
+namespace SummryApi.Repositories.UserSummryQueries
 {
     public interface IUserSummryQueryRepository : IGenericRepository<UserSummryQuery>
     {

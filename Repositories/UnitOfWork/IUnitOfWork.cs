@@ -1,16 +1,16 @@
-﻿using StarterApi.Repositories.Permissions;
-using StarterApi.Repositories.Platforms;
-using StarterApi.Repositories.Products;
-using StarterApi.Repositories.UserSummryQueries;
-using StarterApi.Repositories.RolePermissions;
-using StarterApi.Repositories.Roles;
-using StarterApi.Repositories.Stores;
-using StarterApi.Repositories.UserRoles;
-using StarterApi.Repositories.Users;
-using StarterApi.Repositories.UserSummryStores;
-using StarterApi.Repositories.UserSummries;
+﻿using SummryApi.Repositories.Permissions;
+using SummryApi.Repositories.Platforms;
+using SummryApi.Repositories.Products;
+using SummryApi.Repositories.UserSummryQueries;
+using SummryApi.Repositories.RolePermissions;
+using SummryApi.Repositories.Roles;
+using SummryApi.Repositories.Stores;
+using SummryApi.Repositories.UserRoles;
+using SummryApi.Repositories.Users;
+using SummryApi.Repositories.UserSummryStores;
+using SummryApi.Repositories.UserSummries;
 
-namespace StarterApi.Repositories.UnitOfWork
+namespace SummryApi.Repositories.UnitOfWork
 {
     public interface IUnitOfWork
     {

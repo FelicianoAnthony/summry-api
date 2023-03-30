@@ -1,12 +1,12 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using StarterApi.Constants;
-using StarterApi.Entities;
+using SummryApi.Constants;
+using SummryApi.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace StarterApi.Helpers.AuthHelper
+namespace SummryApi.Helpers.AuthHelper
 {
     public class AuthHelpers : IAuthHelpers
     {

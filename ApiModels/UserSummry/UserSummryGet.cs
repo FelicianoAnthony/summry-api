@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Store;
-using StarterApi.ApiModels.UserSummryQuery;
+﻿using SummryApi.ApiModels.Store;
+using SummryApi.ApiModels.UserSummryQuery;
 using System.Text.Json.Serialization;
 
-namespace StarterApi.ApiModels.UserSummry
+namespace SummryApi.ApiModels.UserSummry
 {
     public class UserSummryGet
     {

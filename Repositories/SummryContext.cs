@@ -1,19 +1,19 @@
 using Microsoft.EntityFrameworkCore;
-using StarterApi.Entities;
-using StarterApi.Entities.Base;
+using SummryApi.Entities;
+using SummryApi.Entities.Base;
 
 namespace LbAutomationPortalApi.Repositories
 {
-    public partial class StarterApiContext : DbContext
+    public partial class SummryContext : DbContext
     {
         public IConfiguration Configuration { get; }
 
 
-        public StarterApiContext()
+        public SummryContext()
         {
         }
 
-        public StarterApiContext(DbContextOptions<StarterApiContext> options, IConfiguration configuration)
+        public SummryContext(DbContextOptions<SummryContext> options, IConfiguration configuration)
             : base(options)
         {
             Configuration = configuration;

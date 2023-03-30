@@ -1,11 +1,11 @@
 ﻿using LbAutomationPortalApi.Repositories;
 using LinqKit;
-using StarterApi.ApiModels.UserSummry;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+using SummryApi.ApiModels.UserSummry;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 using System.Linq.Expressions;
 
-namespace StarterApi.Repositories.UserSummries
+namespace SummryApi.Repositories.UserSummries
 {
     public class UserSummryRepository : GenericRepository<UserSummry>, IUserSummryRepository
     {
@@ -16,7 +16,7 @@ namespace StarterApi.Repositories.UserSummries
             "UserSummryQueries"
         };
 
-        public UserSummryRepository(StarterApiContext context) : base(context)
+        public UserSummryRepository(SummryContext context) : base(context)
         {
         }
 

@@ -1,4 +1,4 @@
-﻿namespace StarterApi.Entities.Base
+﻿namespace SummryApi.Entities.Base
 {
     public class BaseTimestamp
     {

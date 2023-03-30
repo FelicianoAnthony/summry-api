@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.RolePermission;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.ApiModels.RolePermission;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.RolePermissions
+namespace SummryApi.Repositories.RolePermissions
 {
     public interface IRolePermissionRepository : IGenericRepository<RolePermission>
     {

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using StarterApi.Entities.Base;
+using SummryApi.Entities.Base;
 
-namespace StarterApi.Entities
+namespace SummryApi.Entities
 {
     public class User : BaseTimestamp
     {

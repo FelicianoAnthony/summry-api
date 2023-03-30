@@ -1,11 +1,11 @@
 ﻿using LbAutomationPortalApi.Repositories;
 using LinqKit;
-using StarterApi.ApiModels.Store;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+using SummryApi.ApiModels.Store;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 using System.Linq.Expressions;
 
-namespace StarterApi.Repositories.Stores
+namespace SummryApi.Repositories.Stores
 {
     public class StoreRepository : GenericRepository<Store>, IStoreRepository
     {
@@ -14,7 +14,7 @@ namespace StarterApi.Repositories.Stores
 
         private readonly List<string> _defaultRelatedTables = new() { "Platform" };
 
-        public StoreRepository(StarterApiContext context) : base(context) { }
+        public StoreRepository(SummryContext context) : base(context) { }
 
 
 

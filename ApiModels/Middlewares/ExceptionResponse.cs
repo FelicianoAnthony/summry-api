@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace StarterApi.ApiModels.Middlewares
+namespace SummryApi.ApiModels.Middlewares
 {
     public class ExceptionResponse
     {

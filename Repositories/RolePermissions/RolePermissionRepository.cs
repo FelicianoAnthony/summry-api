@@ -1,17 +1,17 @@
 ﻿using LbAutomationPortalApi.Repositories;
 using LinqKit;
-using StarterApi.ApiModels.RolePermission;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+using SummryApi.ApiModels.RolePermission;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 using System.Linq.Expressions;
 
-namespace StarterApi.Repositories.RolePermissions
+namespace SummryApi.Repositories.RolePermissions
 {
     public class RolePermissionRepository : GenericRepository<RolePermission>, IRolePermissionRepository
     {
         private readonly List<string> _defaultTables = new() { "Role", "Permission" };
         
-        public RolePermissionRepository(StarterApiContext context) : base(context)
+        public RolePermissionRepository(SummryContext context) : base(context)
         {
         }
 

@@ -1,9 +1,9 @@
-﻿using StarterApi.ApiModels.UserSummryQuery;
-using StarterApi.Entities;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
+﻿using SummryApi.ApiModels.UserSummryQuery;
+using SummryApi.Entities;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
 
-namespace StarterApi.Services.UserSummryQueryService
+namespace SummryApi.Services.UserSummryQueryService
 {
     public class UserSummryQueryService : IUserSummryQueryService
     {

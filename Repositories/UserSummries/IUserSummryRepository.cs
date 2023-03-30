@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.UserSummry;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.ApiModels.UserSummry;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.UserSummries
+namespace SummryApi.Repositories.UserSummries
 {
     public interface IUserSummryRepository : IGenericRepository<UserSummry>
     {

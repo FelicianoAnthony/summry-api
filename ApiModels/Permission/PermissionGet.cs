@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.Role;
+using SummryApi.ApiModels.Role;
 using System.Text.Json.Serialization;
 
-namespace StarterApi.ApiModels.Permission
+namespace SummryApi.ApiModels.Permission
 {
     public class PermissionGet : BasePermission
     {

@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Login;
-using StarterApi.ApiModels.User;
-using StarterApi.Entities;
+﻿using SummryApi.ApiModels.Login;
+using SummryApi.ApiModels.User;
+using SummryApi.Entities;
 
-namespace StarterApi.Services.Users
+namespace SummryApi.Services.Users
 {
     public interface IUserService
     {

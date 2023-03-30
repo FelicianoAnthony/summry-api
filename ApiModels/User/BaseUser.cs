@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StarterApi.ApiModels.User
+namespace SummryApi.ApiModels.User
 {
     public class BaseUser
     {

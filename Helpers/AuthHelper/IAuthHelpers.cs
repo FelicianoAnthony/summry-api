@@ -1,7 +1,7 @@
-﻿using StarterApi.Entities;
+﻿using SummryApi.Entities;
 using System.Security.Claims;
 
-namespace StarterApi.Helpers.AuthHelper
+namespace SummryApi.Helpers.AuthHelper
 {
     public interface IAuthHelpers
     {

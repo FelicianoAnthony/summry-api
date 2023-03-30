@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Permission;
-using StarterApi.Entities;
-using StarterApi.Services.BaseService;
+﻿using SummryApi.ApiModels.Permission;
+using SummryApi.Entities;
+using SummryApi.Services.BaseService;
 
-namespace StarterApi.Services.Permissions
+namespace SummryApi.Services.Permissions
 {
     public interface IPermissionService : IBaseService<Permission, PermissionGet, PermissionPost, PermissionPatch, PermissionQueryParams>
     {

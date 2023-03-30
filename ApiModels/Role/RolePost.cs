@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace StarterApi.ApiModels.Role
+namespace SummryApi.ApiModels.Role
 {
     public class RolePost : BaseRole
     {

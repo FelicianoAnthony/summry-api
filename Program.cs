@@ -6,21 +6,21 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
-using StarterApi.Constants;
-using StarterApi.Helpers.AuthHelper;
-using StarterApi.Middlewares.Authorizations;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
-using StarterApi.Services.HttpClients;
-using StarterApi.Services.Permissions;
-using StarterApi.Services.Platforms;
-using StarterApi.Services.Products;
-using StarterApi.Services.RolePermissions;
-using StarterApi.Services.Roles;
-using StarterApi.Services.Stores;
-using StarterApi.Services.Users;
-using StarterApi.Services.UserSummries;
-using StarterApi.Services.UserSummryQueryService;
+using SummryApi.Constants;
+using SummryApi.Helpers.AuthHelper;
+using SummryApi.Middlewares.Authorizations;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
+using SummryApi.Services.HttpClients;
+using SummryApi.Services.Permissions;
+using SummryApi.Services.Platforms;
+using SummryApi.Services.Products;
+using SummryApi.Services.RolePermissions;
+using SummryApi.Services.Roles;
+using SummryApi.Services.Stores;
+using SummryApi.Services.Users;
+using SummryApi.Services.UserSummries;
+using SummryApi.Services.UserSummryQueryService;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -51,7 +51,7 @@ logger.Info($"initializing project with '{environment.EnvironmentName}' appsetti
 // Add services to the container.
 
 // get DB connection string & use default DB schema 
-builder.Services.AddDbContext<StarterApiContext>(options =>
+builder.Services.AddDbContext<SummryContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
          x => x.MigrationsHistoryTable("__EFMigrationsHistory", builder.Configuration.GetValue<string>("DefaultSchema"))

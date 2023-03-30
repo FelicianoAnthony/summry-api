@@ -1,17 +1,17 @@
 ﻿using LbAutomationPortalApi.Repositories;
 using LinqKit;
-using StarterApi.ApiModels.Platform;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+using SummryApi.ApiModels.Platform;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 using System.Linq.Expressions;
 
-namespace StarterApi.Repositories.Platforms
+namespace SummryApi.Repositories.Platforms
 {
     public class PlatformRepository : GenericRepository<Platform>, IPlatformRepository
     {
         private readonly List<string> _storesTable = new() { "Stores" };
 
-        public PlatformRepository(StarterApiContext context) : base(context) { }
+        public PlatformRepository(SummryContext context) : base(context) { }
 
 
         public async Task<Platform> FindByName(string name)

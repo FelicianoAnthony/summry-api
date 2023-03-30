@@ -1,7 +1,7 @@
-﻿using StarterApi.ApiModels.UserSummryQuery;
-using StarterApi.Entities;
+﻿using SummryApi.ApiModels.UserSummryQuery;
+using SummryApi.Entities;
 
-namespace StarterApi.Services.UserSummryQueryService
+namespace SummryApi.Services.UserSummryQueryService
 {
     public interface IUserSummryQueryService
     {

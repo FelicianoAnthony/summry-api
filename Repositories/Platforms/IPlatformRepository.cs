@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Platform;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.ApiModels.Platform;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.Platforms
+namespace SummryApi.Repositories.Platforms
 {
     public interface IPlatformRepository : IGenericRepository<Platform>
     {

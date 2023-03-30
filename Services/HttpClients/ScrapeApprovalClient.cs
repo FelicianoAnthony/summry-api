@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace StarterApi.Services.HttpClients
+namespace SummryApi.Services.HttpClients
 {
     public class ScrapeApprovalClient
     {

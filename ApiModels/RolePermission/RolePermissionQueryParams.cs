@@ -1,4 +1,4 @@
-﻿namespace StarterApi.ApiModels.RolePermission
+﻿namespace SummryApi.ApiModels.RolePermission
 {
     public class RolePermissionQueryParams : BaseRolePermission
     {

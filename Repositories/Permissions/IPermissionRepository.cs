@@ -1,9 +1,9 @@
-﻿using StarterApi.ApiModels.Permission;
-using StarterApi.ApiModels.Role;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.ApiModels.Permission;
+using SummryApi.ApiModels.Role;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.Permissions
+namespace SummryApi.Repositories.Permissions
 {
     public interface IPermissionRepository : IGenericRepository<Permission>
     {

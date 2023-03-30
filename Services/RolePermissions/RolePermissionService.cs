@@ -1,9 +1,9 @@
-﻿using StarterApi.ApiModels.RolePermission;
-using StarterApi.Entities;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
+﻿using SummryApi.ApiModels.RolePermission;
+using SummryApi.Entities;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
 
-namespace StarterApi.Services.RolePermissions
+namespace SummryApi.Services.RolePermissions
 {
     public class RolePermissionService : IRolePermissionService
     {

@@ -61,7 +61,7 @@ function copy_unit_file()
 
 
 # $1=WINE_UNIT_FILE_CP
-# $2=WINEAPI_UNIT_FILE
+# $2=SUMMRY_API_UNIT_FILE
 function change_service_status()
 {
     sudo systemctl daemon-reload
@@ -89,7 +89,7 @@ function dotnet_publish()
 
 
 # init functions args
-WINEAPI_UNIT_FILE="wineapi.service"
+SUMMRY_API_UNIT_FILE="summry-api.service"
 PACKAGES=("dotnet-sdk-6.0")
 INSTALL="install"
 STOP="stop"
@@ -101,8 +101,8 @@ START="start"
 new_server_init
 package_handler $INSTALL "${PACKAGES[@]}"
 
-change_service_status $STOP $WINEAPI_UNIT_FILE
-copy_unit_file $WINEAPI_UNIT_FILE
+change_service_status $STOP $SUMMRY_API_UNIT_FILE
+copy_unit_file $SUMMRY_API_UNIT_FILE
 
 dotnet_publish
-change_service_status $START $WINEAPI_UNIT_FILE
+change_service_status $START $SUMMRY_API_UNIT_FILE

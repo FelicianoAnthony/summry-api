@@ -1,4 +1,4 @@
-﻿namespace StarterApi.Services.BaseService
+﻿namespace SummryApi.Services.BaseService
 {
     public interface IBaseService<TYPE, GET, POST, PATCH, QUERY> 
         where TYPE : class

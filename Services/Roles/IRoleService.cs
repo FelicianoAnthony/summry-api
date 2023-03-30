@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Role;
-using StarterApi.Entities;
-using StarterApi.Services.BaseService;
+﻿using SummryApi.ApiModels.Role;
+using SummryApi.Entities;
+using SummryApi.Services.BaseService;
 
-namespace StarterApi.Services.Roles
+namespace SummryApi.Services.Roles
 {
     public interface IRoleService : IBaseService<Role, RoleGet, RolePost, RolePatch, RoleQueryParams>
     {

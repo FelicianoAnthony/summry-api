@@ -1,11 +1,11 @@
-﻿using StarterApi.ApiModels.Platform;
-using StarterApi.ApiModels.Store;
-using StarterApi.Entities;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
-using StarterApi.Services.BaseService;
+﻿using SummryApi.ApiModels.Platform;
+using SummryApi.ApiModels.Store;
+using SummryApi.Entities;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
+using SummryApi.Services.BaseService;
 
-namespace StarterApi.Services.Platforms
+namespace SummryApi.Services.Platforms
 {
     public class PlatformService : IBaseService<Platform, PlatformGet, PlatformPost, PlatformPatch, PlatformQueryParams>, IPlatformService
     {

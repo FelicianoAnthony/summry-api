@@ -1,4 +1,4 @@
-﻿namespace StarterApi.ApiModels.Permission
+﻿namespace SummryApi.ApiModels.Permission
 {
     public class PermissionPatch : BasePermission
     {

@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace StarterApi.Repositories.Generic
+namespace SummryApi.Repositories.Generic
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected StarterApiContext _context;
+        protected SummryContext _context;
         internal DbSet<T> dbSet;
 
-        public GenericRepository(StarterApiContext context)
+        public GenericRepository(SummryContext context)
         {
             _context = context;
             dbSet = context.Set<T>();

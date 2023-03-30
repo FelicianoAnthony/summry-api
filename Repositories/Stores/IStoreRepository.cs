@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Store;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.ApiModels.Store;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.Stores
+namespace SummryApi.Repositories.Stores
 {
     public interface IStoreRepository : IGenericRepository<Store>
     {

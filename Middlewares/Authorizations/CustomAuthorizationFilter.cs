@@ -6,7 +6,7 @@ using System.Security.Authentication;
 
 // use it like this above controller method.  no import in program.cs
 // [TypeFilter(typeof(CustomAuthorizationFilter))]
-namespace StarterApi.Middlewares.Authorizations
+namespace SummryApi.Middlewares.Authorizations
 {
     // https://referbruv.com/blog/building-custom-responses-for-unauthorized-requests-in-aspnet-core/
     // https://ignas.me/tech/custom-unauthorized-response-body/

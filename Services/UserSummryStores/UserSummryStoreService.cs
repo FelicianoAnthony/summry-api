@@ -1,11 +1,11 @@
-﻿//using StarterApi.ApiModels.Store;
-//using StarterApi.ApiModels.User;
-//using StarterApi.ApiModels.UserStore;
-//using StarterApi.Entities;
-//using StarterApi.Middlewares.Exceptions;
-//using StarterApi.Repositories.UnitOfWork;
+﻿//using SummryApi.ApiModels.Store;
+//using SummryApi.ApiModels.User;
+//using SummryApi.ApiModels.UserStore;
+//using SummryApi.Entities;
+//using SummryApi.Middlewares.Exceptions;
+//using SummryApi.Repositories.UnitOfWork;
 
-//namespace StarterApi.Services.UserSummryStores
+//namespace SummryApi.Services.UserSummryStores
 //{
 //    public class UserSummryStoreService : IUserSummryStoreService
 //    {

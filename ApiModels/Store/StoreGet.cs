@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.Platform;
-using StarterApi.ApiModels.Product;
+using SummryApi.ApiModels.Platform;
+using SummryApi.ApiModels.Product;
 using System.Text.Json.Serialization;
 
-namespace StarterApi.ApiModels.Store
+namespace SummryApi.ApiModels.Store
 {
     public class StoreGet : BaseStore
     {

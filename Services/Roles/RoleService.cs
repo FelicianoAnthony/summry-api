@@ -1,11 +1,11 @@
-﻿using StarterApi.ApiModels.Permission;
-using StarterApi.ApiModels.Role;
-using StarterApi.Entities;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
-using StarterApi.Services.BaseService;
+﻿using SummryApi.ApiModels.Permission;
+using SummryApi.ApiModels.Role;
+using SummryApi.Entities;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
+using SummryApi.Services.BaseService;
 
-namespace StarterApi.Services.Roles
+namespace SummryApi.Services.Roles
 {
     public class RoleService : IBaseService<Role, RoleGet, RolePost, RolePatch, RoleQueryParams>, IRoleService
     {

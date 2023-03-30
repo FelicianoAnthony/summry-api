@@ -1,7 +1,7 @@
-﻿using StarterApi.ApiModels.Store;
-using StarterApi.Entities;
+﻿using SummryApi.ApiModels.Store;
+using SummryApi.Entities;
 
-namespace StarterApi.Services.Stores
+namespace SummryApi.Services.Stores
 {
     public interface IStoreService
     {
