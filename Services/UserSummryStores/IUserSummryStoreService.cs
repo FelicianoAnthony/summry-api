@@ -1,7 +1,7 @@
-﻿//using StarterApi.ApiModels.UserStore;
-//using StarterApi.Entities;
+﻿//using SummryApi.ApiModels.UserStore;
+//using SummryApi.Entities;
 
-//namespace StarterApi.Services.UserSummryStores
+//namespace SummryApi.Services.UserSummryStores
 //{
 //    public interface IUserSummryStoreService
 //    {

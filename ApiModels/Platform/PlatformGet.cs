@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.Store;
+using SummryApi.ApiModels.Store;
 using System.Text.Json.Serialization;
 
-namespace StarterApi.ApiModels.Platform
+namespace SummryApi.ApiModels.Platform
 {
     public class PlatformGet
     {

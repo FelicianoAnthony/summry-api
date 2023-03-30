@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace StarterApi.Middlewares.Exceptions
+namespace SummryApi.Middlewares.Exceptions
 {
     [Serializable]
     public class NotFoundException : Exception, ISerializable

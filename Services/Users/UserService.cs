@@ -1,14 +1,14 @@
-﻿using StarterApi.ApiModels.Login;
-using StarterApi.ApiModels.Store;
-using StarterApi.ApiModels.User;
-using StarterApi.ApiModels.UserSummry;
-using StarterApi.ApiModels.UserSummryQuery;
-using StarterApi.Entities;
-using StarterApi.Helpers.AuthHelper;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
+﻿using SummryApi.ApiModels.Login;
+using SummryApi.ApiModels.Store;
+using SummryApi.ApiModels.User;
+using SummryApi.ApiModels.UserSummry;
+using SummryApi.ApiModels.UserSummryQuery;
+using SummryApi.Entities;
+using SummryApi.Helpers.AuthHelper;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
 
-namespace StarterApi.Services.Users
+namespace SummryApi.Services.Users
 {
     public class UserService : IUserService
     {

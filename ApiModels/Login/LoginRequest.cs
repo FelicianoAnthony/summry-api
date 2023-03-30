@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace StarterApi.ApiModels.Login
+namespace SummryApi.ApiModels.Login
 {
     public class LoginRequest
     {

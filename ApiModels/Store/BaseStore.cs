@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StarterApi.ApiModels.Store
+namespace SummryApi.ApiModels.Store
 {
     public class BaseStore
     {

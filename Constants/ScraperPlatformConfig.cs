@@ -1,4 +1,4 @@
-﻿namespace StarterApi.Constants
+﻿namespace SummryApi.Constants
 {
     public class ScraperPlatformConfig
     {

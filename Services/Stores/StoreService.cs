@@ -1,13 +1,13 @@
-﻿using StarterApi.ApiModels.Platform;
-using StarterApi.ApiModels.Product;
-using StarterApi.ApiModels.Store;
-using StarterApi.Constants;
-using StarterApi.Entities;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
-using StarterApi.Services.HttpClients;
+﻿using SummryApi.ApiModels.Platform;
+using SummryApi.ApiModels.Product;
+using SummryApi.ApiModels.Store;
+using SummryApi.Constants;
+using SummryApi.Entities;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
+using SummryApi.Services.HttpClients;
 
-namespace StarterApi.Services.Stores
+namespace SummryApi.Services.Stores
 {
     public class StoreService : IStoreService
     {
@@ -37,7 +37,7 @@ namespace StarterApi.Services.Stores
             foreach (var requestUserStore in requestUserStores)
             {
                 // todo: silently fail or not?
-                var urlPlatform = await CheckUrlScrapability(requestUserStore.Url);
+                Platform urlPlatform = await CheckUrlScrapability(requestUserStore.Url);
                 if (urlPlatform == null)
                 {
                     // throw new Exception($"{requestUserStore.Url} does not match a platform for which scraping logic has been developed");

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
-namespace StarterApi.ApiModels.UserSummryQuery
+namespace SummryApi.ApiModels.UserSummryQuery
 {
     public class UserSummryQueryGet : BaseUserSummryQuery
     {

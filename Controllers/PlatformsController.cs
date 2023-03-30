@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using StarterApi.Entities;
-using StarterApi.ApiModels.Store;
-using StarterApi.Services.Stores;
-using StarterApi.Services.Platforms;
-using StarterApi.ApiModels.Platform;
+using SummryApi.Entities;
+using SummryApi.ApiModels.Store;
+using SummryApi.Services.Stores;
+using SummryApi.Services.Platforms;
+using SummryApi.ApiModels.Platform;
 
-namespace StarterApi.Controllers
+namespace SummryApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

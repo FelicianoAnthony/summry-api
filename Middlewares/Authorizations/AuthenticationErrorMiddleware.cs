@@ -1,6 +1,6 @@
 ﻿using System.Security.Authentication;
 // https://stackoverflow.com/questions/62199488/how-to-enable-custom-authorization-messages
-namespace StarterApi.Middlewares.Authorizations
+namespace SummryApi.Middlewares.Authorizations
 {
     public class AuthenticationErrorMiddleware
     {

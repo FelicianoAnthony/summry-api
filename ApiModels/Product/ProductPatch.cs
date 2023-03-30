@@ -1,4 +1,4 @@
-﻿namespace StarterApi.ApiModels.Product
+﻿namespace SummryApi.ApiModels.Product
 {
     public class ProductPatch
     {

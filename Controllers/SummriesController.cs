@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StarterApi.ApiModels.User;
-using StarterApi.ApiModels.UserSummry;
-using StarterApi.Entities;
-using StarterApi.Helpers.AuthHelper;
-using StarterApi.Services.Stores;
-using StarterApi.Services.Users;
-using StarterApi.Services.UserSummries;
-using StarterApi.Services.UserSummryQueryService;
+using SummryApi.ApiModels.User;
+using SummryApi.ApiModels.UserSummry;
+using SummryApi.Entities;
+using SummryApi.Helpers.AuthHelper;
+using SummryApi.Services.Stores;
+using SummryApi.Services.Users;
+using SummryApi.Services.UserSummries;
+using SummryApi.Services.UserSummryQueryService;
 
-namespace StarterApi.Controllers
+namespace SummryApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

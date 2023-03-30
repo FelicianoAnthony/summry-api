@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace StarterApi.ApiModels.RolePermission
+namespace SummryApi.ApiModels.RolePermission
 {
     public class RolePermissionGet : BaseRolePermission
     {

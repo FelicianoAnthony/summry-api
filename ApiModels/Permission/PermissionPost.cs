@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace StarterApi.ApiModels.Permission
+namespace SummryApi.ApiModels.Permission
 {
     public class PermissionPost : BasePermission
     {

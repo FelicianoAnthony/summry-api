@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.Middlewares;
+using SummryApi.ApiModels.Middlewares;
 using System.Net;
 using System.Security.Authentication;
 
-namespace StarterApi.Middlewares.Exceptions
+namespace SummryApi.Middlewares.Exceptions
 {
     public class GlobalExceptionMiddleware
     {

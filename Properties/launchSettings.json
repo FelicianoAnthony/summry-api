@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "StarterApi": {
+    "SummryApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

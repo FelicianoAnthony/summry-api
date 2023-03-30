@@ -1,18 +1,18 @@
 ﻿using LbAutomationPortalApi.Repositories;
 using LinqKit;
-using StarterApi.ApiModels.Product;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+using SummryApi.ApiModels.Product;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 using System.Linq.Expressions;
 
-namespace StarterApi.Repositories.Products
+namespace SummryApi.Repositories.Products
 {
     public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
 
         private readonly List<string> _storeTable = new() { "Store" };
 
-        public ProductRepository(StarterApiContext context) : base(context) { }
+        public ProductRepository(SummryContext context) : base(context) { }
 
 
 

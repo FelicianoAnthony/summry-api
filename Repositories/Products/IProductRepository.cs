@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Product;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.ApiModels.Product;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.Products
+namespace SummryApi.Repositories.Products
 {
     public interface IProductRepository : IGenericRepository<Product>
     {

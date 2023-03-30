@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using StarterApi.Entities;
-using StarterApi.ApiModels.Permission;
-using StarterApi.Services.Permissions;
+using SummryApi.Entities;
+using SummryApi.ApiModels.Permission;
+using SummryApi.Services.Permissions;
 
-namespace StarterApi.Controllers
+namespace SummryApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -1,4 +1,4 @@
-﻿namespace StarterApi.ApiModels.Role
+﻿namespace SummryApi.ApiModels.Role
 {
     public class BaseRole
     {

@@ -1,11 +1,11 @@
-﻿using StarterApi.ApiModels.Permission;
-using StarterApi.ApiModels.Role;
-using StarterApi.Entities;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
-using StarterApi.Services.BaseService;
+﻿using SummryApi.ApiModels.Permission;
+using SummryApi.ApiModels.Role;
+using SummryApi.Entities;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
+using SummryApi.Services.BaseService;
 
-namespace StarterApi.Services.Permissions
+namespace SummryApi.Services.Permissions
 {
     public class PermissionService : IBaseService<Permission, PermissionGet, PermissionPost, PermissionPatch, PermissionQueryParams>, IPermissionService
     {

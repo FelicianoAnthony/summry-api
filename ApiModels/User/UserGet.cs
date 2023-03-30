@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using StarterApi.ApiModels.UserSummry;
+using SummryApi.ApiModels.UserSummry;
 using System.Text.Json.Serialization;
 
-namespace StarterApi.ApiModels.User
+namespace SummryApi.ApiModels.User
 {
     public class UserGet     
     {

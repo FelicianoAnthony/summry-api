@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace StarterApi.Repositories.Generic
+namespace SummryApi.Repositories.Generic
 {
     public interface IGenericRepository<T> where T : class
     {

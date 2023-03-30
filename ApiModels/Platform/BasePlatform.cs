@@ -1,4 +1,4 @@
-﻿namespace StarterApi.ApiModels.Platform
+﻿namespace SummryApi.ApiModels.Platform
 {
     public class BasePlatform
     {

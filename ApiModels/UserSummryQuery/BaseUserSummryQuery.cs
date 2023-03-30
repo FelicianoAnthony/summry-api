@@ -1,4 +1,4 @@
-﻿namespace StarterApi.ApiModels.UserSummryQuery
+﻿namespace SummryApi.ApiModels.UserSummryQuery
 {
     public class BaseUserSummryQuery
     {

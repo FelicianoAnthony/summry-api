@@ -1,7 +1,7 @@
-﻿using StarterApi.ApiModels.RolePermission;
-using StarterApi.Entities;
+﻿using SummryApi.ApiModels.RolePermission;
+using SummryApi.Entities;
 
-namespace StarterApi.Services.RolePermissions
+namespace SummryApi.Services.RolePermissions
 {
     public interface IRolePermissionService
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace StarterApi.ApiModels.UserSummry
+namespace SummryApi.ApiModels.UserSummry
 {
     public class UserSummryPost
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace StarterApi.ApiModels.Login
+namespace SummryApi.ApiModels.Login
 {
     public class LoginResponse
     {

@@ -1,7 +1,7 @@
-﻿using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+﻿using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.UserRoles
+namespace SummryApi.Repositories.UserRoles
 {
     public interface IUserRoleRepository : IGenericRepository<UserRole>
     {

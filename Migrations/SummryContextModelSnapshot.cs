@@ -8,10 +8,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace StarterApi.Migrations
+namespace SummryApi.Migrations
 {
-    [DbContext(typeof(StarterApiContext))]
-    partial class StarterApiContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SummryContext))]
+    partial class SummryContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace StarterApi.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StarterApi.Entities.Permission", b =>
+            modelBuilder.Entity("SummryApi.Entities.Permission", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace StarterApi.Migrations
                     b.ToTable("Permissions", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Platform", b =>
+            modelBuilder.Entity("SummryApi.Entities.Platform", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace StarterApi.Migrations
                     b.ToTable("Platform", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Product", b =>
+            modelBuilder.Entity("SummryApi.Entities.Product", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -141,7 +141,7 @@ namespace StarterApi.Migrations
                     b.ToTable("Products", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Role", b =>
+            modelBuilder.Entity("SummryApi.Entities.Role", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -174,7 +174,7 @@ namespace StarterApi.Migrations
                     b.ToTable("Roles", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.RolePermission", b =>
+            modelBuilder.Entity("SummryApi.Entities.RolePermission", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -207,7 +207,7 @@ namespace StarterApi.Migrations
                     b.ToTable("RolePermissions", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Store", b =>
+            modelBuilder.Entity("SummryApi.Entities.Store", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -241,7 +241,7 @@ namespace StarterApi.Migrations
                     b.ToTable("Stores", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.User", b =>
+            modelBuilder.Entity("SummryApi.Entities.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +282,7 @@ namespace StarterApi.Migrations
                     b.ToTable("Users", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserRole", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserRole", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -315,7 +315,7 @@ namespace StarterApi.Migrations
                     b.ToTable("UserRoles", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserSummry", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserSummry", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -356,7 +356,7 @@ namespace StarterApi.Migrations
                     b.ToTable("UserSummries", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserSummryQuery", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserSummryQuery", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -402,7 +402,7 @@ namespace StarterApi.Migrations
                     b.ToTable("UserSummryQueries", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserSummryStore", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserSummryStore", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -440,9 +440,9 @@ namespace StarterApi.Migrations
                     b.ToTable("UserSummryStores", "public");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Product", b =>
+            modelBuilder.Entity("SummryApi.Entities.Product", b =>
                 {
-                    b.HasOne("StarterApi.Entities.Store", "Store")
+                    b.HasOne("SummryApi.Entities.Store", "Store")
                         .WithMany("Products")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -451,15 +451,15 @@ namespace StarterApi.Migrations
                     b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.RolePermission", b =>
+            modelBuilder.Entity("SummryApi.Entities.RolePermission", b =>
                 {
-                    b.HasOne("StarterApi.Entities.Permission", "Permission")
+                    b.HasOne("SummryApi.Entities.Permission", "Permission")
                         .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("StarterApi.Entities.Role", "Role")
+                    b.HasOne("SummryApi.Entities.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -470,9 +470,9 @@ namespace StarterApi.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Store", b =>
+            modelBuilder.Entity("SummryApi.Entities.Store", b =>
                 {
-                    b.HasOne("StarterApi.Entities.Platform", "Platform")
+                    b.HasOne("SummryApi.Entities.Platform", "Platform")
                         .WithMany("Stores")
                         .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -481,15 +481,15 @@ namespace StarterApi.Migrations
                     b.Navigation("Platform");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserRole", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserRole", b =>
                 {
-                    b.HasOne("StarterApi.Entities.Role", "Role")
+                    b.HasOne("SummryApi.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StarterApi.Entities.User", "User")
+                    b.HasOne("SummryApi.Entities.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -500,9 +500,9 @@ namespace StarterApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserSummry", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserSummry", b =>
                 {
-                    b.HasOne("StarterApi.Entities.User", "User")
+                    b.HasOne("SummryApi.Entities.User", "User")
                         .WithMany("UserSummries")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -511,9 +511,9 @@ namespace StarterApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserSummryQuery", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserSummryQuery", b =>
                 {
-                    b.HasOne("StarterApi.Entities.UserSummry", "UserSummry")
+                    b.HasOne("SummryApi.Entities.UserSummry", "UserSummry")
                         .WithMany("UserSummryQueries")
                         .HasForeignKey("UserSummryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -522,15 +522,15 @@ namespace StarterApi.Migrations
                     b.Navigation("UserSummry");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserSummryStore", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserSummryStore", b =>
                 {
-                    b.HasOne("StarterApi.Entities.Store", "Store")
+                    b.HasOne("SummryApi.Entities.Store", "Store")
                         .WithMany("UserSummryStore")
                         .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("StarterApi.Entities.UserSummry", "UserSummry")
+                    b.HasOne("SummryApi.Entities.UserSummry", "UserSummry")
                         .WithMany("UserSummryStores")
                         .HasForeignKey("UserSummryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -541,36 +541,36 @@ namespace StarterApi.Migrations
                     b.Navigation("UserSummry");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Permission", b =>
+            modelBuilder.Entity("SummryApi.Entities.Permission", b =>
                 {
                     b.Navigation("RolePermissions");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Platform", b =>
+            modelBuilder.Entity("SummryApi.Entities.Platform", b =>
                 {
                     b.Navigation("Stores");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Role", b =>
+            modelBuilder.Entity("SummryApi.Entities.Role", b =>
                 {
                     b.Navigation("RolePermissions");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.Store", b =>
+            modelBuilder.Entity("SummryApi.Entities.Store", b =>
                 {
                     b.Navigation("Products");
 
                     b.Navigation("UserSummryStore");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.User", b =>
+            modelBuilder.Entity("SummryApi.Entities.User", b =>
                 {
                     b.Navigation("UserRoles");
 
                     b.Navigation("UserSummries");
                 });
 
-            modelBuilder.Entity("StarterApi.Entities.UserSummry", b =>
+            modelBuilder.Entity("SummryApi.Entities.UserSummry", b =>
                 {
                     b.Navigation("UserSummryQueries");
 

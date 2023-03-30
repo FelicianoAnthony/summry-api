@@ -1,6 +1,6 @@
-﻿using StarterApi.Entities.Base;
+﻿using SummryApi.Entities.Base;
 
-namespace StarterApi.Entities
+namespace SummryApi.Entities
 {
     public class UserSummry : BaseTimestamp
     {

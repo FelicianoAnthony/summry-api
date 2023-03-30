@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using StarterApi.Entities;
-using StarterApi.Services.Roles;
-using StarterApi.Services.RolePermissions;
-using StarterApi.ApiModels.RolePermission;
-using StarterApi.Services.Permissions;
+using SummryApi.Entities;
+using SummryApi.Services.Roles;
+using SummryApi.Services.RolePermissions;
+using SummryApi.ApiModels.RolePermission;
+using SummryApi.Services.Permissions;
 
-namespace StarterApi.Controllers
+namespace SummryApi.Controllers
 {
     [Route("api/role-permissions")]
     [ApiController]

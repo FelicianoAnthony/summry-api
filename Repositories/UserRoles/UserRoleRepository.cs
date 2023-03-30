@@ -1,12 +1,12 @@
 ﻿using LbAutomationPortalApi.Repositories;
-using StarterApi.Entities;
-using StarterApi.Repositories.Generic;
+using SummryApi.Entities;
+using SummryApi.Repositories.Generic;
 
-namespace StarterApi.Repositories.UserRoles
+namespace SummryApi.Repositories.UserRoles
 {
     public class UserRoleRepository : GenericRepository<UserRole>, IUserRoleRepository
     {
-        public UserRoleRepository(StarterApiContext context) : base(context)
+        public UserRoleRepository(SummryContext context) : base(context)
         {
         }
     }

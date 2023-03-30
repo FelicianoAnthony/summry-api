@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
-namespace StarterApi.Middlewares.Authorizations
+namespace SummryApi.Middlewares.Authorizations
 {
     public class UsernameAuthorization : AuthorizationHandler<UserNameRequirement>
     {

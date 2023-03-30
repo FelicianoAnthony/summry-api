@@ -1,12 +1,12 @@
-﻿using StarterApi.ApiModels.Store;
-using StarterApi.ApiModels.UserSummry;
-using StarterApi.ApiModels.UserSummryQuery;
-using StarterApi.Entities;
-using StarterApi.Middlewares.Exceptions;
-using StarterApi.Repositories.UnitOfWork;
+﻿using SummryApi.ApiModels.Store;
+using SummryApi.ApiModels.UserSummry;
+using SummryApi.ApiModels.UserSummryQuery;
+using SummryApi.Entities;
+using SummryApi.Middlewares.Exceptions;
+using SummryApi.Repositories.UnitOfWork;
 using System.Text.RegularExpressions;
 
-namespace StarterApi.Services.UserSummries
+namespace SummryApi.Services.UserSummries
 {
     public class UserSummryService : IUserSummryService
     {

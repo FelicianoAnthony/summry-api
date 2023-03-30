@@ -1,8 +1,8 @@
-﻿using StarterApi.ApiModels.Product;
-using StarterApi.Entities;
-using StarterApi.Services.BaseService;
+﻿using SummryApi.ApiModels.Product;
+using SummryApi.Entities;
+using SummryApi.Services.BaseService;
 
-namespace StarterApi.Services.Products
+namespace SummryApi.Services.Products
 {
     public interface IProductService : IBaseService<Product, ProductGet, ProductPost, ProductPatch, ProductQueryParams>
     {
