@@ -43,7 +43,7 @@ namespace SummryApi.Controllers
         {
             int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
 
-            UserGet user = await _userSvc.GetOne(userId, null);
+            UserGet user = await _userSvc.GetOne(userId, new UserQueryParams { ShowSummries = true });
             return user.Summries;
         }
 
