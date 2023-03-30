@@ -9,7 +9,7 @@ namespace SummryApi.Repositories.Users
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private readonly List<string> _defaultTables = new() 
+        private readonly List<string> _summryTables = new() 
         {
             "UserSummries.UserSummryQueries",
             "UserSummries.UserSummryStores.Store.Platform"
@@ -48,13 +48,21 @@ namespace SummryApi.Repositories.Users
         // private methods
         private List<string> BuildRelatedEntitiesLookup(UserQueryParams? queryParams)
         {
-            return _defaultTables;
+            queryParams ??= new UserQueryParams();
+
+
+            var relatedTables = new List<string>();
+            if (queryParams.ShowSummries == true)
+            {
+                relatedTables.AddRange(_summryTables);
+            }
+            return relatedTables;
         }
 
 
         private Expression<Func<User, bool>> BuildPredicate(UserQueryParams? queryParams, long? id)
         {
-            queryParams = queryParams == null ? new UserQueryParams() : queryParams;
+            queryParams ??= new UserQueryParams();
 
             Expression<Func<User, bool>> predicate = PredicateBuilder.New<User>(true);
 

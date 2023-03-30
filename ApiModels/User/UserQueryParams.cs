@@ -2,5 +2,6 @@
 {
     public class UserQueryParams : BaseUser
     {
+        public bool? ShowSummries { get; set; }
     }
 }

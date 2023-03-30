@@ -41,19 +41,12 @@ namespace SummryApi.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult<UserGet>> AddUser(UserPost request)
-        {
-            long newUserId = await _userSvc.CreateUser(request);
-            return await _userSvc.GetOne(newUserId, null);
-            
-        }
-
-
-        [HttpDelete("{id}")]
+        [HttpDelete("me")]
         public async Task<IActionResult> DeleteUser(long id)
         {
-            User user = await _userSvc.GetEntity(id, null);
+            int userId = _authHelpers.GetUserFromJwt(Request.HttpContext.User);
+
+            User user = await _userSvc.GetEntity(userId, new UserQueryParams { ShowSummries = true });
             bool result = await _userSvc.Delete(user);
             return NoContent();
         }
