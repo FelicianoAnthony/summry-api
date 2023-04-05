@@ -78,6 +78,16 @@
 
 
 
+### Deployment 
+---
+
+1.  ./main.sh & summry-api.service 
+    - intended for using when freshly installing API on a new server
+    - copies systemd unit file & publishes release build of API for the current ubuntu OS
+        - would have to change package manager used in script if using another distro like RHEL
+
+2. ./Dockerfile 
+    - part of docker compose file in [this repo](https://github.com/Anto-Gary/summry)
 
 
 
@@ -86,6 +96,7 @@
 1. code to "validate store url can be scraped by scraper" works but is commented out to make development easier
     StoreService.ConvertToEntities
         > if url isnt a shopify store, it's silently skipped
+
 
 
 #### TO CONSIDER
