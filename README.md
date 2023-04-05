@@ -1,13 +1,15 @@
 # Summry API
 ---
 
-- This repo will hold the API code.
+- This is the backend for [summry_frontend](https://github.com/Anto-Gary/summry_frontend) repo
+- This is the future data source for [shopify_scraper](https://github.com/Anto-Gary/shopify_scraper) repo
 
 ### Folder Structure 
 ---
-1. appsettings.<environment>.json files
+1. appsettings.{{environment}}.json files
     * these files contain constants used across the API, DB connection strings, secrets, etc.
     * different files for different environments
+    * secrets will be removed once there is a deployment process that handles secret substitution
 
 
 2. ./ApiModels 
@@ -15,17 +17,16 @@
 
 
 3. ./Constants
-    - values are derived from the currently used appsettings file
-    - contains stuff from config files that's immutable
+    - values should never change & are derived from the appsettings.{{environment}}.json file used on startup
 
 
 4. ./Controllers 
     - routes
-    - controllers call service which calls repository to make DB query 
+    - controllers call service (of a similar name) which calls repository (of a similar name)
 
 
 5. ./Entities
-    - C# classes that map to DB tables (the mapping happens in ./Repositories/SummryContext.cs)
+    - classes that map to DB tables (the mapping happens in ./Repositories/SummryContext.cs)
 
 
 6. ./Helpers
@@ -41,7 +42,7 @@
     - EF Core migrations for SummryContext
 
 9. ./Properties 
-    - used when debugging in VS code
+    - used when debugging in Visual Studio
 
 10. ./Repositories
     - [Unit of work](https://dev.to/moe23/step-by-step-repository-pattern-and-unit-of-work-with-asp-net-core-5-3l92) pattern implemented
@@ -50,7 +51,7 @@
     - called by service of a similar name
 
 11. ./Services
-    - called by a controller with similar name and calls repository by similar name
+    - called by a controller of a similar name and calls repository of a similar name
     - business logic resides here
     
 
@@ -58,13 +59,22 @@
 ### How to run 
 ---
 
-1. dotnet restore
+1. ```cs
+    dotnet restore
+   ```
 
-2. dotnet run SummryApi 
+2. ```cs
+    dotnet run SummryApi 
+   ```
 
-3. listens on https://localhost:7256
 
-4. swagger on https://localhost:7256
+
+### Ports 
+---
+
+1. listens on https://localhost:7256
+
+2. swagger on https://localhost:7256/swagger/index.html
 
 
 
@@ -73,7 +83,7 @@
 
 ### GOTCHAS
 ---
-1. code to validate store url can be scraped works but is commented out to make development easier
+1. code to "validate store url can be scraped by scraper" works but is commented out to make development easier
     StoreService.ConvertToEntities
         > if url isnt a shopify store, it's silently skipped
 
