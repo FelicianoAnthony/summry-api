@@ -9,7 +9,19 @@ function new_server_init()
     sudo apt-get upgrade -y    
 }
 
-# $1= package to install from package_handler
+
+# $1=package to uninstall from package_handler
+function remove_package()
+{
+    echo -e "uninstalling package '${1}'"
+    sudo apt-get remove $1 -y
+    sudo apt-get purge $1 -y
+    sudo apt-get autoremove $1 -y 
+    sudo apt-get clean
+}
+
+
+# $1=package to install from package_handler
 function install_package()
 {
     IS_PACKAGE_INSTALLED=$(dpkg -l | awk -v pkg="$1" ' $2 == pkg  ' | wc -l)
