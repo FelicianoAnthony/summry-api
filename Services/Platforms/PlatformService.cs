@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using SummryApi.ApiModels.Platform;
-using SummryApi.ApiModels.Store;
 using SummryApi.Entities;
 using SummryApi.Middlewares.Exceptions;
 using SummryApi.Repositories.UnitOfWork;
-using SummryApi.Services.BaseService;
 
 namespace SummryApi.Services.Platforms
 {
-    public class PlatformService : IBaseService<Platform, PlatformGet, PlatformPost, PlatformPatch, PlatformQueryParams>, IPlatformService
+    public class PlatformService : IPlatformService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -44,7 +42,8 @@ namespace SummryApi.Services.Platforms
 
         public async Task<PlatformGet> GetOne(long id, PlatformQueryParams? queryParams)
         {
-            return TransformOne(await GetEntity(id, queryParams), queryParams);
+            var entity = await GetEntity(id, queryParams);
+            return _mapper.Map<PlatformGet>(entity);
         }
 
 
@@ -64,7 +63,8 @@ namespace SummryApi.Services.Platforms
             await _unitOfWork.Platforms.Add(newRow);
             await _unitOfWork.CompleteAsync();
 
-            return TransformOne(await GetEntity(newRow.Id, null), null);
+            Platform entity = await GetEntity(newRow.Id, null);
+            return _mapper.Map<PlatformGet>(entity);
         }
 
 
@@ -79,27 +79,6 @@ namespace SummryApi.Services.Platforms
             return await GetOne(existingRow.Id, null);
         }
 
-
-        public PlatformGet TransformOne(Platform row, PlatformQueryParams? queryParams)
-        {
-            queryParams = queryParams ?? new PlatformQueryParams();
-
-            return new PlatformGet
-            {
-                Id = row.Id,
-                Name = row.Name,
-                DisplayName = row.DisplayName,
-                Description = row.Description,
-                Stores = queryParams.ShowStores == true
-                    ? row.Stores.Select(s => new StoreGet
-                    {
-                        Id = s.Id,
-                        Url = s.Url,
-                    }).ToList()
-                    : null,
-
-            };
-        }
 
         // non inherited 
         public async Task<Platform> FindByName(string name)
