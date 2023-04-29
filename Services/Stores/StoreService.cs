@@ -120,18 +120,18 @@ namespace SummryApi.Services.Stores
                         DisplayName = row.Platform.DisplayName,
                         Description = row.Platform.Description
                     } 
-                : null
-                //Products = queryParams.ShowProducts == true 
-                //    ? row.Products.Select(p => new ProductGet 
-                //    {
-                //        Id = p.Id,
-                //        Title = p.Title,
-                //        Price = p.Price,
-                //        PublishedAt = p.PublishedAt,
-                //        Available = p.Available,
-                //        Description = p.Description,
-                //    }).ToList()
-                //    : null,
+                : null,
+                Products = queryParams.ShowProducts == true
+                    ? row.Products.Select(p => new ProductGet
+                    {
+                        Id = p.Id,
+                        Title = p.Title,
+                        Price = p.Price,
+                        PublishedAt = p.PublishedAt,
+                        Available = p.Available,
+                        Description = p.Description,
+                    }).ToList()
+                    : null,
 
             };
         }
