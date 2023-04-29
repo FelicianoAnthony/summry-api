@@ -174,17 +174,17 @@ builder.Services.AddSingleton(builder.Configuration.GetSection("RegexConfig").Ge
 builder.Services.AddSingleton(builder.Configuration.GetSection("ScraperPlatformConfig").Get<ScraperPlatformConfig>());
 
 
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // add HTTP classes
 builder.Services.AddScoped<ScrapeApprovalClient>();
 
-// serializer services -- // this hides null values globally 
-//builder.Services.AddMvc()
-//        .AddJsonOptions(options => {
-//            options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-//        });
-
+// prevents this error, only started when using automapper - https://stackoverflow.com/questions/59199593/net-core-3-0-possible-object-cycle-was-detected-which-is-not-supported
+// this line also makes this type of null removal not work in ApiModels class properties - [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+// [JsonProperty] data annotation in ./ApiModels started acting differently than before after this line too...
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 
 var app = builder.Build();

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SummryApi.ApiModels.Platform;
-using SummryApi.ApiModels.Product;
 using System.Text.Json.Serialization;
 
 namespace SummryApi.ApiModels.Store
@@ -20,8 +19,9 @@ namespace SummryApi.ApiModels.Store
 
 
         // foreign keys
-        [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public List<ProductGet> Products { get; set; }
+        // show null since change in Program.cs in this commit...
+        //[System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        //public List<ProductGet> Products { get; set; }
 
     }
 }

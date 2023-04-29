@@ -1,4 +1,5 @@
-﻿using SummryApi.ApiModels.Platform;
+﻿using AutoMapper;
+using SummryApi.ApiModels.Platform;
 using SummryApi.ApiModels.Store;
 using SummryApi.Entities;
 using SummryApi.Middlewares.Exceptions;
@@ -10,10 +11,12 @@ namespace SummryApi.Services.Platforms
     public class PlatformService : IBaseService<Platform, PlatformGet, PlatformPost, PlatformPatch, PlatformQueryParams>, IPlatformService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public PlatformService(IUnitOfWork unitOfWork)
+        public PlatformService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public Platform ConvertToEntity(PlatformPost req)
@@ -35,8 +38,8 @@ namespace SummryApi.Services.Platforms
 
         public async Task<List<PlatformGet>> GetMany(PlatformQueryParams? queryParams)
         {
-            var entities = await _unitOfWork.Platforms.GetEntities(queryParams);
-            return entities.Select(s => TransformOne(s, queryParams)).ToList();
+            List<Platform> entities = await _unitOfWork.Platforms.GetEntities(queryParams);
+            return _mapper.Map<List<PlatformGet>>(entities);
         }
 
         public async Task<PlatformGet> GetOne(long id, PlatformQueryParams? queryParams)
